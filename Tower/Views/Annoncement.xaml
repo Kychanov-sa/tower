@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tower.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="240" d:DesignWidth="320" Background="#1d1d20" Foreground="White">
+             d:DesignHeight="240" d:DesignWidth="320" Background="#3d3d40" Foreground="White">
 
   <UserControl.Resources>
     <ResourceDictionary>
@@ -29,11 +29,15 @@
       
     </ResourceDictionary>
   </UserControl.Resources>
+  <UserControl.Effect>
+      <DropShadowEffect BlurRadius="40" />
+  </UserControl.Effect>
+  
   <Grid Margin="16">
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="40" />
+      <ColumnDefinition Width="30" />
       <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="40" />
+      <ColumnDefinition Width="30" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="50" />
