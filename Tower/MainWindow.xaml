@@ -11,7 +11,8 @@
                  ShowMaxRestoreButton="False" ShowMinButton="False"
                  Width="1600" Height="700" WindowStartupLocation="CenterScreen"
                  BorderThickness="1" BorderBrush="Black" Background="#2D2D30" ResizeMode="NoResize"
-                 Loaded="MetroWindow_Loaded">
+                 Loaded="MetroWindow_Loaded"
+                 Closed="MetroWindow_Closed">
   <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -189,11 +190,7 @@
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GroupFullsizeHeader}" Content="Информация" />
             <mah:Tile Title="Объявления" Style="{StaticResource FullSizeTileStyle}" Background="CornflowerBlue" Click="Annoncements_Click">
               <mah:Tile.Content>
-                <Rectangle Width="64" Height="48">
-                  <Rectangle.Fill>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_email}" />
-                  </Rectangle.Fill>
-                </Rectangle>
+                <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\Annoncement.png" />
               </mah:Tile.Content>
             </mah:Tile>
             <mah:Tile Title="Отчёты" Style="{StaticResource FullSizeTileStyle}" Background="Magenta">
@@ -209,7 +206,7 @@
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_check}" />
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_checkmark}" />
                   </Rectangle.Fill>
                 </Rectangle>
               </mah:Tile.Content>
@@ -227,7 +224,7 @@
 
           <WrapPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GroupFullsizeHeader}" Content="Сервис" />
-            <mah:Tile Title="Вызов специалиста" Style="{StaticResource DoubleSizeTileStyle}" Background="Goldenrod" Click="Specialist_Click">
+            <mah:Tile Title="Вызвать специалиста" Style="{StaticResource DoubleSizeTileStyle}" Background="Goldenrod" Click="Specialist_Click">
               <mah:Tile.Content>
                 <Rectangle Width="64" Height="64">
                   <Rectangle.Fill>
@@ -237,7 +234,7 @@
               </mah:Tile.Content>
             </mah:Tile>
 
-            <mah:Tile Title="Уведомит о поломке" Style="{StaticResource DoubleSizeTileStyle}" Background="DarkOliveGreen">
+            <mah:Tile Title="Уведомить о поломке" Style="{StaticResource DoubleSizeTileStyle}" Background="DarkOliveGreen">
               <mah:Tile.Content>
                 <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\BrokenHouse.png" />
               </mah:Tile.Content>
@@ -370,11 +367,11 @@
           </StackPanel.Effect>
           <Label Foreground="White" FontSize="24" Content="Оформление заявления" Margin="10" />
 
-          <StackPanel Name="SpecialistWasOrdered" Visibility="Collapsed" >
+          <!--<StackPanel Name="SpecialistWasOrdered" Visibility="Collapsed" >
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="35" FontSize="24" Foreground="White">
               Обращение отправлено.
             </TextBlock>
-          </StackPanel>
+          </StackPanel>-->
 
           <StackPanel Name="OrderWizard" Margin="20 0">
             <TextBlock Name="FirstStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Foreground="LightGray">

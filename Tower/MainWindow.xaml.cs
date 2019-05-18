@@ -18,6 +18,10 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Tower.Views;
 using Tower.Core.Threading;
+using ToastNotifications;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
 
 namespace Tower
 {
@@ -26,6 +30,7 @@ namespace Tower
   /// </summary>
   public partial class MainWindow : MetroWindow
   {
+    private Notifier _notifier;
     private WatchdogTimer _screenSaverTimer;
     private ViewModels.MainWindow _viewModel;
 
@@ -33,6 +38,19 @@ namespace Tower
     {
       _viewModel = new ViewModels.MainWindow();
       this.DataContext = _viewModel;
+
+      _notifier = new Notifier(cfg =>
+      {
+        cfg.PositionProvider = new WindowPositionProvider(
+          parentWindow: this,
+          corner: Corner.BottomRight,
+          offsetX: 10, offsetY: 10);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+          notificationLifetime: TimeSpan.FromSeconds(3),
+          maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+        cfg.Dispatcher = this.Dispatcher;
+      });
 
       InitializeComponent();
 
@@ -104,7 +122,7 @@ namespace Tower
       PageTitle.Text = "Вызов специалиста";
       BackButton.Visibility = Visibility.Visible;
       OrderWizard.Visibility = Visibility.Visible;
-      SpecialistWasOrdered.Visibility = Visibility.Collapsed;
+      //SpecialistWasOrdered.Visibility = Visibility.Collapsed;
       FirstStepInput.SelectedItem = null;
       SecondStepInput.SelectedItem = null;
       SecondStepInput.IsEnabled = false;
@@ -125,8 +143,14 @@ namespace Tower
 
     private void SendOrder_OnClick(object sender, RoutedEventArgs e)
     {
-      SpecialistWasOrdered.Visibility = Visibility.Visible;
-      OrderWizard.Visibility = Visibility.Collapsed;
+      //SpecialistWasOrdered.Visibility = Visibility.Visible;
+      //BackButton_Click(sender, e);
+      MainWindowPages.SelectedItem = StartPage;
+      PageTitle.Text = "Система управления многоквартирным домом";
+      BackButton.Visibility = Visibility.Collapsed;
+
+      _notifier.ShowSuccess("Обращение успешно отправлено.");
+      //OrderWizard.Visibility = Visibility.Collapsed;
     }
 
     private void FirstStepInput_OnSelected(object sender, RoutedEventArgs e)
@@ -142,6 +166,12 @@ namespace Tower
       ThirdStep.Foreground = Brushes.White;
       ThirdStepInput.Background = Brushes.White;
       SendOrder.IsEnabled = true;
+    }
+
+    private void MetroWindow_Closed(object sender, EventArgs e)
+    {
+      _notifier.Dispose();
+      DestroyTimers();
     }
   }
 }
