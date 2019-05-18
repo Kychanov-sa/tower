@@ -75,6 +75,9 @@
     <Compile Include="ViewModels\Annoncement.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\MainWindow.cs" />
+    <Compile Include="Views\Annoncement.xaml.cs">
+      <DependentUpon>Annoncement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FullScreenWindow.cs" />
     <Compile Include="Views\LockWindow.xaml.cs">
       <DependentUpon>LockWindow.xaml</DependentUpon>
@@ -98,6 +101,10 @@
     <Page Include="Resources\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Annoncement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LockWindow.xaml">
       <SubType>Designer</SubType>

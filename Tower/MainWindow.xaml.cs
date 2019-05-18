@@ -93,7 +93,14 @@ namespace Tower
     {
       MainWindowPages.SelectedItem = AnnoncementsPage;
       PageTitle.Text = "Объявления";
+      BackButton.Visibility = Visibility.Visible;
+    }
 
+    private void BackButton_Click(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = StartPage;
+      PageTitle.Text = "Система управления многоквартирным домом";
+      BackButton.Visibility = Visibility.Collapsed;
     }
   }
 }
