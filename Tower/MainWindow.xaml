@@ -20,6 +20,7 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
       </ResourceDictionary.MergedDictionaries>
 
       <Style x:Key="FullSizeTileStyle" TargetType="mah:Tile">
@@ -363,45 +364,48 @@
       </TabItem>
 
       <TabItem x:Name="SpecialistPage">
-        <StackPanel Orientation="Vertical">
+        <StackPanel x:Name="ApplicationParameters" Orientation="Vertical" Background="#3d3d40" Width="640" HorizontalAlignment="Left">
+          <StackPanel.Effect>
+            <DropShadowEffect BlurRadius="40" />
+          </StackPanel.Effect>
+          <Label Foreground="White" FontSize="24" Content="Оформление заявления" Margin="10" />
 
           <StackPanel Name="SpecialistWasOrdered" Visibility="Collapsed" >
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="35" Width="599" FontSize="24" Foreground="White">
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="35" FontSize="24" Foreground="White">
               Обращение отправлено.
             </TextBlock>
           </StackPanel>
 
-          <StackPanel Name="OrderWizard">
-            <TextBlock Name="FirstStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="35" Width="599" FontSize="24" Foreground="White">
+          <StackPanel Name="OrderWizard" Margin="20 0">
+            <TextBlock Name="FirstStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Foreground="LightGray">
               1. Выберите тип специалиста
             </TextBlock>
 
-            <ComboBox Name="FirstStepInput" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310" Margin="10,10,0,0" FontSize="18" Grid.Row="1" SelectionChanged="FirstStepInput_OnSelected">
+            <ComboBox Name="FirstStepInput" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310" Margin="0,10,0,0" FontSize="18" Grid.Row="1" SelectionChanged="FirstStepInput_OnSelected">
               <ComboBoxItem>Сантехник</ComboBoxItem>
               <ComboBoxItem>Электрик</ComboBoxItem>
               <ComboBoxItem>Газовик</ComboBoxItem>
             </ComboBox>
 
-            <TextBlock Name="SecondStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,40,0,0" Height="35" Width="599" FontSize="24" Foreground="White">
+            <TextBlock Name="SecondStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,40,0,0" FontSize="20" Foreground="LightGray">
               2. Выберите доступного специалиста
             </TextBlock>
 
-            <ComboBox Name="SecondStepInput" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310" Margin="10,10,0,0" FontSize="18" SelectionChanged="SecondStepInput_OnSelectionChanged" Grid.Row="1">
+            <ComboBox Name="SecondStepInput" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310" Margin="0,10,0,0" FontSize="18" SelectionChanged="SecondStepInput_OnSelectionChanged" Grid.Row="1">
               <ComboBoxItem>Печёнкин П.П. </ComboBoxItem>
               <ComboBoxItem>Кочерыжкин К.К.</ComboBoxItem>
               <ComboBoxItem>Пупкин В.С.</ComboBoxItem>
             </ComboBox>
 
-            <TextBlock Name="ThirdStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,40,0,0" Height="35" Width="599" FontSize="24" Foreground="White">
+            <TextBlock Name="ThirdStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,40,0,0" FontSize="20" Foreground="LightGray">
               3. Опишите суть обращения и удобное время обслуживания
             </TextBlock>
 
-            <TextBox Name="ThirdStepInput" FontSize="18" Width="1000" Height="100" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Left"  Margin="10,20,0,0"></TextBox>
+            <TextBox Name="ThirdStepInput" FontSize="18" Width="600" Height="140" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Left"  Margin="0,20,0,0"></TextBox>
 
-            <Button Name="SendOrder" Width="200" Height="40" Margin="10,20,0,0"
-                    VerticalAlignment="Top" HorizontalAlignment="Left" 
+            <Button Name="SendOrder" Width="200" Height="40" Margin="0,20,0,0"
+                    VerticalAlignment="Top" HorizontalAlignment="Center" 
                     Background="CornflowerBlue" FontSize="16" Foreground="White" 
-                    Style="{DynamicResource SquareButtonStyle}" 
                     Click="SendOrder_OnClick">
               Отправить заявку
             </Button>
