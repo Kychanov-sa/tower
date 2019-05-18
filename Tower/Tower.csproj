@@ -149,6 +149,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\LockScreen.jpg" />
+    <Resource Include="Resources\Icons\Flame.png" />
+    <Resource Include="Resources\Icons\BrokenHouse.png" />
+    <Resource Include="Resources\Icons\Camera.png" />
     <Content Include="Resources\Images\WeatherRainy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -117,11 +117,7 @@
             </mah:Tile>
             <mah:Tile Title="Газ" Style="{StaticResource FullSizeTileStyle}" Background="Orange" Margin="4">
               <mah:Tile.Content>
-                <Rectangle Width="48" Height="64">
-                  <Rectangle.Fill>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_gas}" />
-                  </Rectangle.Fill>
-                </Rectangle>
+                <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\Flame.png" />
               </mah:Tile.Content>
             </mah:Tile>
           </WrapPanel>
@@ -180,11 +176,7 @@
 
             <mah:Tile Title="Уведомление о поломке" Style="{StaticResource DoubleSizeTileStyle}" Background="DarkOliveGreen" Margin="4">
               <mah:Tile.Content>
-                <Rectangle Width="64" Height="64">
-                  <Rectangle.Fill>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_brick}" />
-                  </Rectangle.Fill>
-                </Rectangle>
+                <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\BrokenHouse.png" />
               </mah:Tile.Content>
             </mah:Tile>
 
@@ -214,11 +206,7 @@
 
             <mah:Tile Title="Камеры" Style="{StaticResource FullSizeTileStyle}" Background="CornflowerBlue" Margin="4">
               <mah:Tile.Content>
-                <Rectangle Width="64" Height="64">
-                  <Rectangle.Fill>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_camera}" />
-                  </Rectangle.Fill>
-                </Rectangle>
+                <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\Camera.png" />
               </mah:Tile.Content>
             </mah:Tile>
           </WrapPanel>
