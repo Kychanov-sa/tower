@@ -291,7 +291,7 @@
               1. Выберите тип специалиста
             </TextBlock>
 
-            <ComboBox Name="FirstStepInput" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310" Margin="10,10,0,0" FontSize="18" Grid.Row="1">
+            <ComboBox Name="FirstStepInput" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310" Margin="10,10,0,0" FontSize="18" Grid.Row="1" SelectionChanged="FirstStepInput_OnSelected">
               <ComboBoxItem>Сантехник</ComboBoxItem>
               <ComboBoxItem>Электрик</ComboBoxItem>
               <ComboBoxItem>Газовик</ComboBoxItem>
@@ -301,7 +301,7 @@
               2. Выберите доступного специалиста
             </TextBlock>
 
-            <ComboBox Name="SecondStepInput" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310" Margin="10,10,0,0" FontSize="18" Grid.Row="1">
+            <ComboBox Name="SecondStepInput" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310" Margin="10,10,0,0" FontSize="18" SelectionChanged="SecondStepInput_OnSelectionChanged" Grid.Row="1">
               <ComboBoxItem>Печёнкин П.П. </ComboBoxItem>
               <ComboBoxItem>Кочерыжкин К.К.</ComboBoxItem>
               <ComboBoxItem>Пупкин В.С.</ComboBoxItem>

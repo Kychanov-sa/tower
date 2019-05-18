@@ -107,7 +107,13 @@ namespace Tower
       SpecialistWasOrdered.Visibility = Visibility.Collapsed;
       FirstStepInput.SelectedItem = null;
       SecondStepInput.SelectedItem = null;
+      SecondStepInput.IsEnabled = false;
+      SecondStep.Foreground = Brushes.DimGray;
+      SecondStepInput.Background = Brushes.DimGray;
       ThirdStepInput.Text = String.Empty;
+      ThirdStep.Foreground = Brushes.DimGray;
+      ThirdStepInput.Background = Brushes.DimGray;
+      SendOrder.IsEnabled = false;
     }
 
     private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -121,6 +127,21 @@ namespace Tower
     {
       SpecialistWasOrdered.Visibility = Visibility.Visible;
       OrderWizard.Visibility = Visibility.Collapsed;
+    }
+
+    private void FirstStepInput_OnSelected(object sender, RoutedEventArgs e)
+    {
+      SecondStepInput.IsEnabled = true;
+      SecondStepInput.IsEnabled = true;
+      SecondStep.Foreground = Brushes.White;
+      SecondStepInput.Background = Brushes.White;
+    }
+
+    private void SecondStepInput_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      ThirdStep.Foreground = Brushes.White;
+      ThirdStepInput.Background = Brushes.White;
+      SendOrder.IsEnabled = true;
     }
   }
 }
