@@ -6,9 +6,27 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Tower.Views"
         mc:Ignorable="d"
-        ShowMaxRestoreButton="False" Background="White" ShowMinButton="False" IgnoreTaskbarOnMaximize="True"
+        ShowMaxRestoreButton="False" ShowMinButton="False" IgnoreTaskbarOnMaximize="True"
                  WindowState="Maximized" ShowTitleBar="False" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid Margin="40">
+  <mah:MetroWindow.Background>
+    <ImageBrush ImageSource="..\Resources\Images\LockScreen.jpg" Stretch="UniformToFill"/>
+  </mah:MetroWindow.Background>
+  <mah:MetroWindow.Flyouts>
+    <mah:FlyoutsControl>
+      <mah:Flyout Name="Emergency" IsOpen="True" Position="Right" Width="640" Header="Внимание!">
+        <StackPanel Orientation="Vertical" Margin="10 0">
+          <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="32" Foreground="White"  Background="Red" Padding="20">
+            Уважаемые жильцы! Администрация дома сообщает, что в здании произошло возгорание.
+          </TextBlock>
+          <TextBlock  TextWrapping="Wrap" TextAlignment="Justify" FontSize="24" Foreground="White" Background="Firebrick" Padding="20">
+            Просим Вас сохранять спокойствие и спуститься по лестничным клеткам на первый этаж здания. При движении по коридорам руководствуйтесь световыми указателями «Выход». рекомендации служащих гостиницы. Помогите детям, женщинам, инвалидам. Предупредите соседей о необходимости срочной эвакуации. Писать в твиттер о событии можно исключительно после того, как покинули здание.
+          </TextBlock>
+        </StackPanel>
+      </mah:Flyout>
+    </mah:FlyoutsControl>
+  </mah:MetroWindow.Flyouts>
+
+  <Grid Margin="40">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="240" />
       <ColumnDefinition Width="*" />
@@ -22,11 +40,11 @@
     </Grid.RowDefinitions>
     <StackPanel Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Left">
       <Image Width="128" Height="128" Source="..\Resources\Images\WeatherRainy.png" />
-      <TextBlock FontSize="32" TextAlignment="Center" Text="7°, облачно" />
+      <TextBlock FontSize="32" Foreground="White" TextAlignment="Center" Text="7°, облачно" />
     </StackPanel>
     <StackPanel Grid.Row="3" Orientation="Vertical">
-      <TextBlock  FontSize="64" Text="12:31" />
-      <TextBlock  FontSize="32" Text="Четверг, 12 мая" />
+      <TextBlock  Foreground="White" FontSize="64" Text="12:31" />
+      <TextBlock  Foreground="White" FontSize="32" Text="Четверг, 12 мая" />
     </StackPanel>
   </Grid>
 </mah:MetroWindow>
