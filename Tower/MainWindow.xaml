@@ -164,7 +164,7 @@
 
           <WrapPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GroupFullsizeHeader}" Content="Сервис" />
-            <mah:Tile Title="Вызов специалиста" Style="{StaticResource DoubleSizeTileStyle}" Background="Goldenrod" Margin="4">
+            <mah:Tile Title="Вызов специалиста" Style="{StaticResource DoubleSizeTileStyle}" Background="Goldenrod" Margin="4" Click="Specialist_Click">
               <mah:Tile.Content>
                 <Rectangle Width="64" Height="64">
                   <Rectangle.Fill>
@@ -276,8 +276,54 @@
           <TextBlock Grid.Column="1" Foreground="White" FontSize="16" Text="{Binding ElementName=AnnoncementList, Path=SelectedItem.Text}" />
         </Grid>-->
       </TabItem>
+
+      <TabItem x:Name="SpecialistPage">
+        <StackPanel Orientation="Vertical">
+
+          <StackPanel Name="SpecialistWasOrdered" Visibility="Collapsed" >
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="35" Width="599" FontSize="24" Foreground="White">
+              Обращение отправлено.
+            </TextBlock>
+          </StackPanel>
+
+          <StackPanel Name="OrderWizard">
+            <TextBlock Name="FirstStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="35" Width="599" FontSize="24" Foreground="White">
+              1. Выберите тип специалиста
+            </TextBlock>
+
+            <ComboBox Name="FirstStepInput" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310" Margin="10,10,0,0" FontSize="18" Grid.Row="1">
+              <ComboBoxItem>Сантехник</ComboBoxItem>
+              <ComboBoxItem>Электрик</ComboBoxItem>
+              <ComboBoxItem>Газовик</ComboBoxItem>
+            </ComboBox>
+
+            <TextBlock Name="SecondStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,40,0,0" Height="35" Width="599" FontSize="24" Foreground="White">
+              2. Выберите доступного специалиста
+            </TextBlock>
+
+            <ComboBox Name="SecondStepInput" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310" Margin="10,10,0,0" FontSize="18" Grid.Row="1">
+              <ComboBoxItem>Печёнкин П.П. </ComboBoxItem>
+              <ComboBoxItem>Кочерыжкин К.К.</ComboBoxItem>
+              <ComboBoxItem>Пупкин В.С.</ComboBoxItem>
+            </ComboBox>
+
+            <TextBlock Name="ThirdStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,40,0,0" Height="35" Width="599" FontSize="24" Foreground="White">
+              3. Опишите суть обращения и удобное время обслуживания
+            </TextBlock>
+
+            <TextBox Name="ThirdStepInput" FontSize="18" Width="1000" Height="100" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Left"  Margin="10,20,0,0"></TextBox>
+
+            <Button Name="SendOrder" Width="200" Height="40" VerticalAlignment="Top"  HorizontalAlignment="Left"  Margin="10,20,0,0" Click="SendOrder_OnClick">
+              Отправить заявку
+            </Button>
+          </StackPanel>
+        </StackPanel>
+        
+
+        </TabItem>
     </TabControl>
     
-    
+
+
   </Grid>
 </mah:MetroWindow>

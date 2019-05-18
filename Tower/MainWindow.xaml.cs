@@ -47,8 +47,8 @@ namespace Tower
 
     private void CreateTimers()
     {
-        _screenSaverTimer = new WatchdogTimer(1 * 60 * 1000, ScreenSaver_Start);
-        _screenSaverTimer.Start();
+      _screenSaverTimer = new WatchdogTimer(1 * 60 * 1000, ScreenSaver_Start);
+      _screenSaverTimer.Start();
     }
 
     private void DestroyTimers()
@@ -72,7 +72,9 @@ namespace Tower
           //Запускаем хранитель экрана
           var screenSaverWindow = new LockWindow();
           screenSaverWindow.ShowDialog();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
           //ignore
           //Log.Exception(ex);
         }
@@ -96,11 +98,29 @@ namespace Tower
       BackButton.Visibility = Visibility.Visible;
     }
 
+    private void Specialist_Click(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = SpecialistPage;
+      PageTitle.Text = "Вызов специалиста";
+      BackButton.Visibility = Visibility.Visible;
+      OrderWizard.Visibility = Visibility.Visible;
+      SpecialistWasOrdered.Visibility = Visibility.Collapsed;
+      FirstStepInput.SelectedItem = null;
+      SecondStepInput.SelectedItem = null;
+      ThirdStepInput.Text = String.Empty;
+    }
+
     private void BackButton_Click(object sender, RoutedEventArgs e)
     {
       MainWindowPages.SelectedItem = StartPage;
       PageTitle.Text = "Система управления многоквартирным домом";
       BackButton.Visibility = Visibility.Collapsed;
+    }
+
+    private void SendOrder_OnClick(object sender, RoutedEventArgs e)
+    {
+      SpecialistWasOrdered.Visibility = Visibility.Visible;
+      OrderWizard.Visibility = Visibility.Collapsed;
     }
   }
 }
