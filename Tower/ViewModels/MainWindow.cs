@@ -9,6 +9,7 @@ namespace Tower.ViewModels
 {
   public class MainWindow : BaseViewModel
   {
+    public ObservableCollection<Report> Reports { get; set; } = new ObservableCollection<ViewModels.Report>();
     public ObservableCollection<Annoncement> Annoncements { get; set; } = new ObservableCollection<ViewModels.Annoncement>();
 
     public IEnumerable<Annoncement> UnreadAnnoncements { get { return from a in Annoncements where !a.IsRead select a; } }
@@ -41,6 +42,27 @@ namespace Tower.ViewModels
         IsRead = true,
         PublishDate = DateTime.Now.AddDays(-4).AddHours(-1).AddMinutes(-32),
         IsImportant = false
+      });
+
+      Reports.Add(new ViewModels.Report()
+      {
+        Title = "Годовой отчет",
+        FileName = "Resources\\Reports\\obrazets-godovogo-otcheta-UK.rtf",
+        PublishDate = DateTime.Now.AddDays(-4).AddHours(-1).AddMinutes(-32)
+      });
+
+      Reports.Add(new ViewModels.Report()
+      {
+        Title = "Годовой план работ",
+        FileName = "Resources\\Reports\\obrazets-godovogo-plana-rabot.rtf",
+        PublishDate = DateTime.Now.AddDays(-2).AddHours(3),
+      });
+
+      Reports.Add(new ViewModels.Report()
+      {
+        Title = "Отчет об эффективности персонала",
+        FileName = "Resources\\Reports\\obrazets-godovogo-otcheta-UK.rtf",
+        PublishDate = DateTime.Now.AddDays(-34).AddHours(3),
       });
     }
 

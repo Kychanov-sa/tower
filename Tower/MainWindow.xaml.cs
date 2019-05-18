@@ -22,6 +22,7 @@ using ToastNotifications;
 using ToastNotifications.Position;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
+using System.IO;
 
 namespace Tower
 {
@@ -172,6 +173,38 @@ namespace Tower
     {
       _notifier.Dispose();
       DestroyTimers();
+    }
+
+    private void Reports_Click(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = ReportsPage;
+      PageTitle.Text = "Отчёты";
+      BackButton.Visibility = Visibility.Visible;
+    }
+
+    private void ReportsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      if (sender is ListBox reportList)
+      {
+        if (reportList.SelectedItem is ViewModels.Report report)
+        {          
+          TextRange reportDocument = new TextRange(ReportPreview.Document.ContentStart, ReportPreview.Document.ContentEnd);
+          using (var fs = new FileStream(report.FileName, FileMode.Open))
+          {
+            if (System.IO.Path.GetExtension(report.FileName).ToLower() == ".rtf")
+              reportDocument.Load(fs, DataFormats.Rtf);
+            else if (System.IO.Path.GetExtension(report.FileName).ToLower() == ".txt")
+              reportDocument.Load(fs, DataFormats.Text);
+            else
+              reportDocument.Load(fs, DataFormats.Xaml);
+          }
+          ReportPreview.Visibility = Visibility.Visible;
+          PrintReport.Visibility = Visibility.Visible;
+        } else {
+          ReportPreview.Visibility = Visibility.Hidden;
+          PrintReport.Visibility = Visibility.Hidden;
+        }
+      }
     }
   }
 }
