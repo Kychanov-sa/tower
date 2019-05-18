@@ -236,7 +236,7 @@
               </mah:Tile.Content>
             </mah:Tile>
 
-            <mah:Tile Title="Уведомление о поломке" Style="{StaticResource DoubleSizeTileStyle}" Background="DarkOliveGreen">
+            <mah:Tile Title="Уведомит о поломке" Style="{StaticResource DoubleSizeTileStyle}" Background="DarkOliveGreen">
               <mah:Tile.Content>
                 <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\BrokenHouse.png" />
               </mah:Tile.Content>
@@ -398,7 +398,11 @@
 
             <TextBox Name="ThirdStepInput" FontSize="18" Width="1000" Height="100" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Left"  Margin="10,20,0,0"></TextBox>
 
-            <Button Name="SendOrder" Width="200" Height="40" VerticalAlignment="Top"  HorizontalAlignment="Left"  Margin="10,20,0,0" Click="SendOrder_OnClick">
+            <Button Name="SendOrder" Width="200" Height="40" Margin="10,20,0,0"
+                    VerticalAlignment="Top" HorizontalAlignment="Left" 
+                    Background="CornflowerBlue" FontSize="16" Foreground="White" 
+                    Style="{DynamicResource SquareButtonStyle}" 
+                    Click="SendOrder_OnClick">
               Отправить заявку
             </Button>
           </StackPanel>
