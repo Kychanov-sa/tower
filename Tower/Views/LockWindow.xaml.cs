@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Windows.Interop;
+using Tower.Core.Threading;
+using System.Timers;
 
 namespace Tower.Views
 {
@@ -26,6 +28,7 @@ namespace Tower.Views
 
     private bool _isClosing;
     private HwndSource _sourceWindow;
+    private WatchdogTimer _emergencyTimer;
 
     public LockWindow()
     {
@@ -46,6 +49,14 @@ namespace Tower.Views
       InputManager.Current.PreProcessInput += GlobalClickEventHandler;
 
       InitializeComponent();
+
+      _emergencyTimer = new WatchdogTimer(30 * 1000, Emergency_Start);
+      _emergencyTimer.Start();
+    }
+
+    private void Emergency_Start(object sender, ElapsedEventArgs e)
+    {
+      Emergency.IsOpen = true;
     }
 
     private void SourceInitializedEventHandler(object sender, EventArgs e)
