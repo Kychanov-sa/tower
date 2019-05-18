@@ -145,7 +145,7 @@
 
           <WrapPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GroupFullsizeHeader}" Content="Информация" />
-            <mah:Tile Title="Объявления" Style="{StaticResource FullSizeTileStyle}" Background="Firebrick" Margin="4" Click="Annoncements_Click">
+            <mah:Tile Title="Объявления" Style="{StaticResource FullSizeTileStyle}" Background="CornflowerBlue" Margin="4" Click="Annoncements_Click">
               <mah:Tile.Content>
                 <Rectangle Width="64" Height="48">
                   <Rectangle.Fill>
@@ -154,7 +154,7 @@
                 </Rectangle>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Отчёты" Style="{StaticResource FullSizeTileStyle}" Background="Firebrick" Margin="4">
+            <mah:Tile Title="Отчёты" Style="{StaticResource FullSizeTileStyle}" Background="Magenta" Margin="4">
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -163,7 +163,7 @@
                 </Rectangle>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Опросы" Style="{StaticResource FullSizeTileStyle}" Background="Firebrick" Margin="4">
+            <mah:Tile Title="Опросы" Style="{StaticResource FullSizeTileStyle}" Background="Green" Margin="4">
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -172,7 +172,7 @@
                 </Rectangle>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Справка" Style="{StaticResource FullSizeTileStyle}" Background="CornflowerBlue" Margin="4">
+            <mah:Tile Title="Справка" Style="{StaticResource FullSizeTileStyle}" Background="DarkOrchid" Margin="4">
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -185,7 +185,7 @@
 
           <WrapPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GroupFullsizeHeader}" Content="Сервис" />
-            <mah:Tile Title="Вызов специалиста" Style="{StaticResource DoubleSizeTileStyle}" Background="Firebrick" Margin="4">
+            <mah:Tile Title="Вызов специалиста" Style="{StaticResource DoubleSizeTileStyle}" Background="Goldenrod" Margin="4">
               <mah:Tile.Content>
                 <Rectangle Width="64" Height="64">
                   <Rectangle.Fill>
@@ -195,7 +195,7 @@
               </mah:Tile.Content>
             </mah:Tile>
 
-            <mah:Tile Title="Уведомление о поломке" Style="{StaticResource DoubleSizeTileStyle}" Background="Firebrick" Margin="4">
+            <mah:Tile Title="Уведомление о поломке" Style="{StaticResource DoubleSizeTileStyle}" Background="DarkOliveGreen" Margin="4">
               <mah:Tile.Content>
                 <Rectangle Width="64" Height="64">
                   <Rectangle.Fill>
@@ -205,7 +205,7 @@
               </mah:Tile.Content>
             </mah:Tile>
 
-            <mah:Tile Title="Интерком" Style="{StaticResource FullSizeTileStyle}" Background="Firebrick" Margin="4">
+            <mah:Tile Title="Интерком" Style="{StaticResource FullSizeTileStyle}" Background="Tomato" Margin="4">
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -223,7 +223,7 @@
                 <MediaElement Source="Resources\Video\Camera02.mp4" IsMuted="True" />
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Style="{StaticResource DoubleSizeTileStyle}" Background="Tomato" Margin="4">
+            <mah:Tile Style="{StaticResource DoubleSizeTileStyle}" Background="Firebrick" Margin="4">
               <mah:Tile.Content>
                 <TextBlock FontSize="64" Text="SOS" />
               </mah:Tile.Content>
