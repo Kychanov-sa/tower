@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Tower"
+                 xmlns:views="clr-namespace:Tower.Views"
         mc:Ignorable="d"
         Title="Башня" ShowTitleBar="False"
                  ShowMaxRestoreButton="False" ShowMinButton="False"
@@ -241,7 +242,19 @@
       </TabItem>
 
       <TabItem x:Name="AnnoncementsPage">
-        <Grid>
+        <ItemsControl ItemsSource="{Binding Annoncement}">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <WrapPanel  Height="Auto" VerticalAlignment="Stretch"/>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <views:Annoncement Margin="10" Width="320" Height="240" />
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!--<Grid>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />
@@ -256,7 +269,7 @@
           </ListView>
 
           <TextBlock Grid.Column="1" Foreground="White" FontSize="16" Text="{Binding ElementName=AnnoncementList, Path=SelectedItem.Text}" />
-        </Grid>
+        </Grid>-->
       </TabItem>
     </TabControl>
     

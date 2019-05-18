@@ -6,14 +6,34 @@
              xmlns:local="clr-namespace:Tower.Views"
              mc:Ignorable="d" 
              d:DesignHeight="240" d:DesignWidth="320" Background="#1d1d20" Foreground="White">
-  <Grid>
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Resources/Icons.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+  <Grid Margin="10">
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="60" />
+      <ColumnDefinition Width="40" />
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="30" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
+    <Rectangle Width="20" Height="20">
+      <Rectangle.Fill>
+        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_star}" />
+      </Rectangle.Fill>
+    </Rectangle>
+    <TextBlock FontSize="18" TextWrapping="NoWrap" Grid.Column="1" Text="{Binding Title}" />
+    <ScrollViewer Grid.Column="1" Grid.Row="1">
+      <TextBlock FontSize="16" TextWrapping="Wrap"  Text="{Binding Text}" />
+    </ScrollViewer>
   </Grid>
 </UserControl>
