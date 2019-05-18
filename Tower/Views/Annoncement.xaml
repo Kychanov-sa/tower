@@ -15,25 +15,51 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml"/>
       </ResourceDictionary.MergedDictionaries>
+
+      <Style x:Key="IconButton" TargetType="{x:Type Button}">
+        <Setter Property="Width" Value="20" />
+        <Setter Property="Height" Value="26" />
+        <Setter Property="Opacity" Value=".4" />
+        <Style.Triggers>
+          <Trigger Property="IsMouseOver" Value="True">
+            <Setter Property="Opacity" Value="1.0" />
+          </Trigger>
+        </Style.Triggers>
+      </Style>
+      
     </ResourceDictionary>
   </UserControl.Resources>
-  <Grid Margin="10">
+  <Grid Margin="16">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="40" />
       <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="40" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-      <RowDefinition Height="30" />
+      <RowDefinition Height="50" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <Rectangle Width="20" Height="20">
+    <Rectangle Width="20" Height="20" VerticalAlignment="Top" Margin="0 6" Visibility="{Binding FlagVisibility}">
       <Rectangle.Fill>
-        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_star}" />
+        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_flag_wavy}" />
       </Rectangle.Fill>
     </Rectangle>
-    <TextBlock FontSize="18" TextWrapping="NoWrap" Grid.Column="1" Text="{Binding Title}" />
-    <ScrollViewer Grid.Column="1" Grid.Row="1">
-      <TextBlock FontSize="16" TextWrapping="Wrap"  Text="{Binding Text}" />
+    <Button Grid.Column="2" Style="{StaticResource IconButton}" VerticalAlignment="Top" Margin="0 4" BorderThickness="0" Background="Transparent">
+      <Button.Content>
+        <Rectangle Width="20" Height="24">
+        <Rectangle.Fill>
+          <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
+        </Rectangle.Fill>
+        </Rectangle>
+      </Button.Content>
+    </Button>
+    <StackPanel Grid.Column="1" Orientation="Vertical">
+      <TextBlock FontSize="18" TextWrapping="NoWrap" FontWeight="{Binding TitleWeight}" Text="{Binding Title}" />
+      <TextBlock FontSize="14" TextWrapping="NoWrap" Foreground="Gray" Text="{Binding PublishDate}" />
+    </StackPanel>
+    
+    <ScrollViewer Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+      <TextBlock FontSize="16" Foreground="LightGray" TextWrapping="Wrap"  Text="{Binding Text}" />
     </ScrollViewer>
   </Grid>
 </UserControl>

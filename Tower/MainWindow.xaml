@@ -19,6 +19,7 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
       </ResourceDictionary.MergedDictionaries>
 
       <Style x:Key="FullSizeTileStyle" TargetType="mah:Tile">
@@ -93,7 +94,7 @@
       <TextBlock x:Name="PageTitle" Foreground="White" VerticalAlignment="Center" FontSize="32" Text="Система управления многоквартирным домом" />
     </StackPanel>
 
-    <TabControl x:Name="MainWindowPages" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="0 20" Background="Transparent">
+    <TabControl x:Name="MainWindowPages" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Background="Transparent">
       <TabItem x:Name="StartPage">
         <Grid >
           <Grid.ColumnDefinitions>
@@ -186,7 +187,7 @@
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GroupFullsizeHeader}" Content="Сервис" />
             <mah:Tile Title="Вызов специалиста" Style="{StaticResource DoubleSizeTileStyle}" Background="Firebrick" Margin="4">
               <mah:Tile.Content>
-                <Rectangle Width="32" Height="32">
+                <Rectangle Width="64" Height="64">
                   <Rectangle.Fill>
                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_user}" />
                   </Rectangle.Fill>
@@ -196,7 +197,7 @@
 
             <mah:Tile Title="Уведомление о поломке" Style="{StaticResource DoubleSizeTileStyle}" Background="Firebrick" Margin="4">
               <mah:Tile.Content>
-                <Rectangle Width="32" Height="32">
+                <Rectangle Width="64" Height="64">
                   <Rectangle.Fill>
                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_brick}" />
                   </Rectangle.Fill>
@@ -242,18 +243,51 @@
       </TabItem>
 
       <TabItem x:Name="AnnoncementsPage">
-        <ItemsControl ItemsSource="{Binding Annoncement}">
-          <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-              <WrapPanel  Height="Auto" VerticalAlignment="Stretch"/>
-            </ItemsPanelTemplate>
-          </ItemsControl.ItemsPanel>
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <views:Annoncement Margin="10" Width="320" Height="240" />
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <TabControl Background="Transparent">
+          <TabItem Header="Все">
+            <ItemsControl ItemsSource="{Binding Annoncements}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <WrapPanel  Height="Auto" VerticalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <views:Annoncement Margin="10" Width="360" Height="280" />
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </TabItem>
+          <TabItem Header="Непрочитанные">
+            <ItemsControl ItemsSource="{Binding UnreadAnnoncements}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <WrapPanel  Height="Auto" VerticalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <views:Annoncement Margin="10" Width="360" Height="280" />
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </TabItem>
+          <TabItem Header="Важные">
+            <ItemsControl ItemsSource="{Binding ImportantAnnoncements}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <WrapPanel  Height="Auto" VerticalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <views:Annoncement Margin="10" Width="360" Height="280" />
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </TabItem>
+        </TabControl>
+        
         <!--<Grid>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
