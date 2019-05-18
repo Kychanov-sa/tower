@@ -43,12 +43,12 @@
       <RowDefinition Height="50" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <Rectangle Width="20" Height="20" VerticalAlignment="Top" Margin="0 6" Visibility="{Binding FlagVisibility}">
+    <Rectangle Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 6" Visibility="{Binding FlagVisibility}">
       <Rectangle.Fill>
         <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_flag_wavy}" />
       </Rectangle.Fill>
     </Rectangle>
-    <Button Grid.Column="2" Style="{StaticResource IconButton}" VerticalAlignment="Top" Margin="0 4" BorderThickness="0" Background="Transparent">
+    <Button Grid.Column="2" Style="{StaticResource IconButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 4" BorderThickness="0" Background="Transparent">
       <Button.Content>
         <Rectangle Width="20" Height="24">
         <Rectangle.Fill>
@@ -62,8 +62,8 @@
       <TextBlock FontSize="14" TextWrapping="NoWrap" Foreground="Gray" Text="{Binding PublishDate}" />
     </StackPanel>
     
-    <ScrollViewer Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
-      <TextBlock FontSize="16" Foreground="LightGray" TextWrapping="Wrap"  Text="{Binding Text}" />
+    <ScrollViewer Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Padding="0 0 6 0">
+      <TextBlock FontSize="16" Foreground="LightGray" TextWrapping="Wrap" TextAlignment="Justify" Text="{Binding Text}" />
     </ScrollViewer>
   </Grid>
 </UserControl>
