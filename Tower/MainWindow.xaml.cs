@@ -47,8 +47,8 @@ namespace Tower
 
     private void CreateTimers()
     {
-        _screenSaverTimer = new WatchdogTimer(1 * 60 * 1000, ScreenSaver_Start);
-        _screenSaverTimer.Start();
+      _screenSaverTimer = new WatchdogTimer(1 * 60 * 1000, ScreenSaver_Start);
+      _screenSaverTimer.Start();
     }
 
     private void DestroyTimers()
@@ -72,7 +72,9 @@ namespace Tower
           //Запускаем хранитель экрана
           var screenSaverWindow = new LockWindow();
           screenSaverWindow.ShowDialog();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
           //ignore
           //Log.Exception(ex);
         }
@@ -96,11 +98,50 @@ namespace Tower
       BackButton.Visibility = Visibility.Visible;
     }
 
+    private void Specialist_Click(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = SpecialistPage;
+      PageTitle.Text = "Вызов специалиста";
+      BackButton.Visibility = Visibility.Visible;
+      OrderWizard.Visibility = Visibility.Visible;
+      SpecialistWasOrdered.Visibility = Visibility.Collapsed;
+      FirstStepInput.SelectedItem = null;
+      SecondStepInput.SelectedItem = null;
+      SecondStepInput.IsEnabled = false;
+      SecondStep.Foreground = Brushes.DimGray;
+      SecondStepInput.Background = Brushes.DimGray;
+      ThirdStepInput.Text = String.Empty;
+      ThirdStep.Foreground = Brushes.DimGray;
+      ThirdStepInput.Background = Brushes.DimGray;
+      SendOrder.IsEnabled = false;
+    }
+
     private void BackButton_Click(object sender, RoutedEventArgs e)
     {
       MainWindowPages.SelectedItem = StartPage;
       PageTitle.Text = "Система управления многоквартирным домом";
       BackButton.Visibility = Visibility.Collapsed;
+    }
+
+    private void SendOrder_OnClick(object sender, RoutedEventArgs e)
+    {
+      SpecialistWasOrdered.Visibility = Visibility.Visible;
+      OrderWizard.Visibility = Visibility.Collapsed;
+    }
+
+    private void FirstStepInput_OnSelected(object sender, RoutedEventArgs e)
+    {
+      SecondStepInput.IsEnabled = true;
+      SecondStepInput.IsEnabled = true;
+      SecondStep.Foreground = Brushes.White;
+      SecondStepInput.Background = Brushes.White;
+    }
+
+    private void SecondStepInput_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      ThirdStep.Foreground = Brushes.White;
+      ThirdStepInput.Background = Brushes.White;
+      SendOrder.IsEnabled = true;
     }
   }
 }
