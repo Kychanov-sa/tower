@@ -29,7 +29,7 @@
           <Setter.Value>
             <ControlTemplate TargetType="chartingToolkit:LineDataPoint">
               <Grid>
-                <Ellipse Fill="AliceBlue"/>
+                <Ellipse Fill="#FF375A78"/>
                 <Canvas>
                   <TextBlock FontWeight="Bold" Text="{Binding Value}" Margin="15,0,0,0"/>
                 </Canvas>
@@ -37,6 +37,11 @@
             </ControlTemplate>
           </Setter.Value>
         </Setter>
+      </Style>
+
+      <Style x:Key="CommonControlsStyle" TargetType="Control">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Foreground" Value="White"/>
       </Style>
 
     </ResourceDictionary>
@@ -51,14 +56,14 @@
         <chartingToolkit:LineSeries x:Name="graph" DependentValuePath="Value" IndependentValuePath="Date" ItemsSource="{Binding}" IsSelectionEnabled="True" DataPointStyle="{StaticResource DataPointsStyle}"/>
       </chartingToolkit:Chart>
     </ScrollViewer>
-    <GroupBox Grid.Row="1" Header="Отправить показания:">
+    <GroupBox Grid.Row="1" Style="{StaticResource CommonControlsStyle}" Margin="10" Padding="5" Header="Отправить показания:">
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*"/>
           <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="value_textBox" Grid.Column="0"/>
-        <Button x:Name="sendData" Grid.Column="1" Content="Отправить" Click="SendData_Click"/>
+        <TextBox x:Name="value_textBox" Grid.Column="0" Style="{StaticResource CommonControlsStyle}" Foreground="Black"/>
+        <Button x:Name="sendData" Grid.Column="1" Style="{StaticResource CommonControlsStyle}" Background="Brown" Content="Отправить" Click="SendData_Click"/>
       </Grid>
     </GroupBox>
   </Grid>
