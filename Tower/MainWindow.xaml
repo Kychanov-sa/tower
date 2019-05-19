@@ -478,6 +478,9 @@
         
 
         </TabItem>
+
+      <TabItem x:Name="CamerasPage">
+      </TabItem>
     </TabControl>
 
 

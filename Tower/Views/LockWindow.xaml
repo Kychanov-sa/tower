@@ -21,12 +21,17 @@
           <TextBlock  TextWrapping="Wrap" TextAlignment="Justify" FontSize="24" Foreground="White" Background="Firebrick" Padding="20">
             Просим Вас сохранять спокойствие и спуститься по лестничным клеткам на первый этаж здания. При движении по коридорам руководствуйтесь световыми указателями «Выход». рекомендации служащих гостиницы. Помогите детям, женщинам, инвалидам. Предупредите соседей о необходимости срочной эвакуации. Писать в твиттер о событии можно исключительно после того, как покинули здание.
           </TextBlock>
+
+          <Button Name="CloseEmergencyButton" Width="200" Height="40" Margin="0 20"
+                    VerticalAlignment="Top" HorizontalAlignment="Center" 
+                    Background="Firebrick" FontSize="16" Foreground="White" 
+                    Click="CloseEmergencyButton_Click" Content="Ясно, понятно" />
         </StackPanel>
       </mah:Flyout>
     </mah:FlyoutsControl>
   </mah:MetroWindow.Flyouts>
 
-  <Grid Margin="40">
+  <Grid Margin="80">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="240" />
       <ColumnDefinition Width="*" />
@@ -40,11 +45,11 @@
     </Grid.RowDefinitions>
     <StackPanel Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Left">
       <Image Width="128" Height="128" Source="..\Resources\Images\WeatherRainy.png" />
-      <TextBlock FontSize="32" Foreground="White" TextAlignment="Center" Text="7°, облачно" />
+      <TextBlock FontSize="32" Foreground="White" TextAlignment="Center" Text="{Binding Wheather}" />
     </StackPanel>
     <StackPanel Grid.Row="3" Orientation="Vertical">
-      <TextBlock  Foreground="White" FontSize="64" Text="12:31" />
-      <TextBlock  Foreground="White" FontSize="32" Text="Четверг, 12 мая" />
+      <TextBlock  Foreground="White" FontSize="64" Text="{Binding CurrentTime}" />
+      <TextBlock  Foreground="White" FontSize="32" Text="{Binding CurrentDate}" />
     </StackPanel>
   </Grid>
 </mah:MetroWindow>
