@@ -1,21 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MahApps;
-using MahApps.Metro;
 using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
 using Tower.Views;
 using Tower.Core.Threading;
 using ToastNotifications;
@@ -140,6 +129,38 @@ namespace Tower
       MainWindowPages.SelectedItem = StartPage;
       PageTitle.Text = "Система управления многоквартирным домом";
       BackButton.Visibility = Visibility.Collapsed;
+    }
+
+    private void ColdWater_Click(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = CounterPage;
+      PageTitle.Text = "Холодная вода";
+      _viewModel.ApplyColdWater();
+      BackButton.Visibility = Visibility.Visible;
+    }
+
+    private void HotWater_Click(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = CounterPage;
+      PageTitle.Text = "Горячая вода";
+      _viewModel.ApplyHotWater();
+      BackButton.Visibility = Visibility.Visible;
+    }
+
+    private void Electricity_Click(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = CounterPage;
+      PageTitle.Text = "Электроэнергия";
+      _viewModel.ApplyElectricity();
+      BackButton.Visibility = Visibility.Visible;
+    }
+
+    private void Gas_Click(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = CounterPage;
+      PageTitle.Text = "Газ";
+      _viewModel.ApplyGas();
+      BackButton.Visibility = Visibility.Visible;
     }
 
     private void SendOrder_OnClick(object sender, RoutedEventArgs e)
