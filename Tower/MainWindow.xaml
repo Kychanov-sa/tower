@@ -1,16 +1,18 @@
 ﻿<mah:MetroWindow x:Class="Tower.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:local="clr-namespace:Tower"
-        mc:Ignorable="d"
-        Title="Башня" ShowTitleBar="False"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 xmlns:local="clr-namespace:Tower"
+                 xmlns:views="clr-namespace:Tower.Views"
+                 mc:Ignorable="d"
+                 Title="Башня" ShowTitleBar="False"
                  ShowMaxRestoreButton="False" ShowMinButton="False"
                  Width="1600" Height="700" WindowStartupLocation="CenterScreen"
                  BorderThickness="1" BorderBrush="Black" Background="#2D2D30" ResizeMode="NoResize"
-                 Loaded="MetroWindow_Loaded">
+                 Loaded="MetroWindow_Loaded"
+                 Closed="MetroWindow_Closed">
   <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -18,24 +20,88 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
       </ResourceDictionary.MergedDictionaries>
 
       <Style x:Key="FullSizeTileStyle" TargetType="mah:Tile">
+        <Setter Property="Margin" Value="8" />
         <!--<Setter Property="Width" Value="147" />-->
         <!--<Setter Property="Height" Value="125" />-->
         <Setter Property="TitleFontSize" Value="16" />
+        <Setter Property="Effect">
+          <Setter.Value>
+            <DropShadowEffect BlurRadius="20" Direction="315" />
+          </Setter.Value>
+        </Setter>
       </Style>
 
       <Style x:Key="DoubleSizeTileStyle" TargetType="mah:Tile">
         <Setter Property="Width" Value="280" />
         <Setter Property="Height" Value="140" />
         <Setter Property="TitleFontSize" Value="16" />
+        <Setter Property="Margin" Value="8" />
+        <Setter Property="Effect">
+          <Setter.Value>
+            <DropShadowEffect BlurRadius="20" Direction="315"  />
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <SolidColorBrush x:Key="HexButtonHoverBrush" Color="LightCyan" />
+      <SolidColorBrush x:Key="HexButtonPressedBrush" Color="LightGray" />
+      <SolidColorBrush x:Key="HexButtonDisabledForegroundBrush" Color="#2888" />
+      <SolidColorBrush x:Key="HexButtonDisabledBackgroundBrush" Color="#2EEE" />
+      <SolidColorBrush x:Key="HexButtonCheckedBrush" Color="LightGray" />
+
+      <Style x:Key="ActionButton" TargetType="Button">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+        <Setter Property="Height" Value="120"/>
+        <Setter Property="Width" Value="120"/>
+        <Setter Property="Button.Effect">
+          <Setter.Value>
+            <DropShadowEffect BlurRadius="20"  Color="#333" />
+          </Setter.Value>
+        </Setter>
+
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="Button">
+              <Grid>
+                <Ellipse x:Name="Hexagon" Fill="{TemplateBinding Background}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" />
+                <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+              </Grid>
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                  <!--<Setter TargetName="Hexagon" Property="Fill" Value="{StaticResource HexButtonHoverBrush}" />-->
+                  <Setter Property="Button.Effect" Value="{x:Null}"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                  <!--<Setter TargetName="Hexagon" Property="Fill" Value="{StaticResource HexButtonPressedBrush}" />-->
+                  <Setter Property="Button.Effect" Value="{x:Null}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                  <Setter TargetName="Hexagon" Property="Fill" Value="{StaticResource HexButtonDisabledBackgroundBrush}" />
+                  <Setter Property="Foreground" Value="{StaticResource HexButtonDisabledForegroundBrush}"/>
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
       </Style>
 
       <Style x:Key="QuadSizeTileStyle" TargetType="mah:Tile">
         <Setter Property="Width" Value="280" />
         <Setter Property="Height" Value="280" />
         <Setter Property="TitleFontSize" Value="16" />
+        <Setter Property="Margin" Value="8" />
+        <Setter Property="Effect">
+          <Setter.Value>
+            <DropShadowEffect BlurRadius="20" Direction="315"  />
+          </Setter.Value>
+        </Setter>
       </Style>
 
       <Style x:Key="GroupFullsizeHeader" TargetType="{x:Type Label}">
@@ -46,48 +112,38 @@
     </ResourceDictionary>
   </Window.Resources>
 
-  <mah:MetroWindow.Flyouts>
-    <mah:FlyoutsControl>
-      <mah:Flyout Name="Annoncements2" IsOpen="False" Position="Right" Width="360" Header="Объявления">
-        <StackPanel Orientation="Vertical" Margin="10 0">
-         
-          
-          <!--<StackPanel Margin="20 0">
-            <TextBlock Foreground="White" FontSize="20">PhotoBaker</TextBlock>
-            <TextBlock Name="AboutVersion" Foreground="White" FontSize="16" Text="{x:Static p:Resources.INFO_CURRENT_VERSION}"/>
-            <TextBlock Foreground="White" FontSize="14" TextAlignment="Justify" TextWrapping="Wrap" Margin="0 10" Text="{x:Static p:Resources.INFO_APPLICATION_DESC}"/>
-            <TextBlock Foreground="White" FontSize="14" TextAlignment="Justify" TextWrapping="Wrap" Text="{x:Static p:Resources.INFO_LICENSE_WARNING}"/>
-            <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" Margin="0 10" Text="{x:Static p:Resources.INFO_COPYRIGHTS}"/>
-          </StackPanel>
-
-          <StackPanel Margin="20 0">
-            <TextBlock Foreground="White" FontSize="16" Text="{x:Static p:Resources.LABEL_AVAILABLE_MODULES}"/>
-            <ListBox Name="AvailableModules" BorderThickness="1" Margin="0 5"></ListBox>
-          </StackPanel>
-          <StackPanel Margin="10">
-            <TextBlock FontSize="12" Foreground="Gray" TextAlignment="Justify" TextWrapping="Wrap" Text="{x:Static p:Resources.INFO_COPYRIGHTS_WARNING}"/>
-          </StackPanel>-->
-        </StackPanel>
-      </mah:Flyout>
-    </mah:FlyoutsControl>
-  </mah:MetroWindow.Flyouts>
-
   <Grid Margin="20">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="200" />
-      </Grid.ColumnDefinitions>
+      <ColumnDefinition Width="220" />
+    </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-      <RowDefinition Height="40" />
+      <RowDefinition Height="70" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <StackPanel Grid.Row="0" Orientation="Horizontal">
-      <TextBlock x:Name="PageTitle" Foreground="White" FontSize="32" Text="Система управления домом" />
+      <Button x:Name="BackButton" Width="50" Height="50" Margin="0 0 16 0" Style="{DynamicResource MetroCircleButtonStyle}" Visibility="Collapsed" Click="BackButton_Click">
+        <Rectangle Width="20" Height="20">
+          <Rectangle.Fill>
+            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_left}" />
+          </Rectangle.Fill>
+        </Rectangle>
+      </Button>
+      <TextBlock x:Name="PageTitle" Foreground="White" VerticalAlignment="Center" FontSize="32" Text="Система управления многоквартирным домом" />
+    </StackPanel>
+    <StackPanel Grid.Column="2" Orientation="Horizontal">
+      <TextBlock Foreground="White" Width="180" TextAlignment="Center" FontSize="25" Padding="8" Height="50" Text="Квартира 13">
+      </TextBlock>
+      <Rectangle Width="32" Height="32" Margin="8 0">
+        <Rectangle.Fill>
+          <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+        </Rectangle.Fill>
+      </Rectangle>
     </StackPanel>
 
-    <TabControl x:Name="MainWindowPages" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="0 20" Background="Transparent">
+    <TabControl x:Name="MainWindowPages" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Background="Transparent">
       <TabItem x:Name="StartPage">
-        <Grid >
+        <Grid>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="320" />
             <ColumnDefinition Width="320" />
@@ -96,7 +152,7 @@
           </Grid.ColumnDefinitions>
           <WrapPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GroupFullsizeHeader}" Content="Счётчики" />
-            <mah:Tile Title="Холодная вода" Style="{StaticResource FullSizeTileStyle}" Background="DarkCyan" Margin="4">
+            <mah:Tile x:Name="ColdWater" Title="Холодная вода" Style="{StaticResource FullSizeTileStyle}" Background="DarkCyan" Click="ColdWater_Click">
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -105,7 +161,7 @@
                 </Rectangle>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Горячая вода" Style="{StaticResource FullSizeTileStyle}" Background="OrangeRed" Margin="4">
+            <mah:Tile Title="Горячая вода" Style="{StaticResource FullSizeTileStyle}" Background="OrangeRed" Click="HotWater_Click">
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -114,7 +170,7 @@
                 </Rectangle>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Электроэнергия" Style="{StaticResource FullSizeTileStyle}" Background="Purple" Margin="4">
+            <mah:Tile Title="Электроэнергия" Style="{StaticResource FullSizeTileStyle}" Background="Purple" Click="Electricity_Click">
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -123,29 +179,24 @@
                 </Rectangle>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Газ" Style="{StaticResource FullSizeTileStyle}" Background="Orange" Margin="4">
+            <mah:Tile Title="Газ" Style="{StaticResource FullSizeTileStyle}" Background="Orange" Click="Gas_Click">
               <mah:Tile.Content>
-                <Rectangle Width="48" Height="64">
-                  <Rectangle.Fill>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_gas}" />
-                  </Rectangle.Fill>
-                </Rectangle>
+                <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\Flame.png" />
               </mah:Tile.Content>
             </mah:Tile>
           </WrapPanel>
 
           <WrapPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GroupFullsizeHeader}" Content="Информация" />
-            <mah:Tile Title="Объявления" Style="{StaticResource FullSizeTileStyle}" Background="Firebrick" Margin="4" Click="Annoncements_Click">
+            <mah:Tile Title="Объявления" Style="{StaticResource FullSizeTileStyle}" Background="CornflowerBlue" Click="Annoncements_Click">
               <mah:Tile.Content>
-                <Rectangle Width="64" Height="48">
-                  <Rectangle.Fill>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_email}" />
-                  </Rectangle.Fill>
-                </Rectangle>
+                <Canvas Width="140" Height="140">
+                  <Image Grid.RowSpan="2" Canvas.Left="38" Canvas.Top="38" Width="64" Height="64" Source="Resources\Icons\Annoncement.png" />
+                  <TextBlock Foreground="White" FontSize="28" Canvas.Right="0" TextAlignment="Center" Background="Orange" Width="40" Canvas.Top="0" Text="{Binding UnreadAnnoncements.Count}"/>
+                </Canvas>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Отчёты" Style="{StaticResource FullSizeTileStyle}" Background="Firebrick" Margin="4">
+            <mah:Tile Title="Отчёты" Style="{StaticResource FullSizeTileStyle}" Background="Magenta" Click="Reports_Click">
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -154,16 +205,19 @@
                 </Rectangle>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Опросы" Style="{StaticResource FullSizeTileStyle}" Background="Firebrick" Margin="4">
+            <mah:Tile x:Name="PollButton" Title="Опросы" Style="{StaticResource FullSizeTileStyle}" Background="Green" Click="PollButton_Click">
               <mah:Tile.Content>
-                <Rectangle Width="48" Height="64">
-                  <Rectangle.Fill>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_check}" />
-                  </Rectangle.Fill>
-                </Rectangle>
+                <Canvas Width="140" Height="140">
+                  <Rectangle Width="48" Height="64" Canvas.Left="46" Canvas.Top="38">
+                    <Rectangle.Fill>
+                      <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_checkmark}" />
+                    </Rectangle.Fill>
+                  </Rectangle>
+                  <TextBlock Foreground="White" FontSize="28" Canvas.Right="0" TextAlignment="Center" Background="Orange" Width="40" Canvas.Top="0" Text="{Binding Questions.Count}"/>
+                </Canvas>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Справка" Style="{StaticResource FullSizeTileStyle}" Background="CornflowerBlue" Margin="4">
+            <mah:Tile Title="Справка" Style="{StaticResource FullSizeTileStyle}" Background="DarkOrchid" >
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -176,9 +230,9 @@
 
           <WrapPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GroupFullsizeHeader}" Content="Сервис" />
-            <mah:Tile Title="Вызов специалиста" Style="{StaticResource DoubleSizeTileStyle}" Background="Firebrick" Margin="4">
+            <mah:Tile Title="Вызвать специалиста" Style="{StaticResource DoubleSizeTileStyle}" Background="Goldenrod" Click="Specialist_Click">
               <mah:Tile.Content>
-                <Rectangle Width="32" Height="32">
+                <Rectangle Width="64" Height="64">
                   <Rectangle.Fill>
                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_user}" />
                   </Rectangle.Fill>
@@ -186,17 +240,13 @@
               </mah:Tile.Content>
             </mah:Tile>
 
-            <mah:Tile Title="Уведомление о поломке" Style="{StaticResource DoubleSizeTileStyle}" Background="Firebrick" Margin="4">
+            <mah:Tile Title="Уведомить о поломке" Style="{StaticResource DoubleSizeTileStyle}" Background="DarkOliveGreen" Click="ProblemReport_OnClick">
               <mah:Tile.Content>
-                <Rectangle Width="32" Height="32">
-                  <Rectangle.Fill>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_brick}" />
-                  </Rectangle.Fill>
-                </Rectangle>
+                <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\BrokenHouse.png" />
               </mah:Tile.Content>
             </mah:Tile>
 
-            <mah:Tile Title="Интерком" Style="{StaticResource FullSizeTileStyle}" Background="Firebrick" Margin="4">
+            <mah:Tile Title="Интерком" Style="{StaticResource FullSizeTileStyle}" Background="Tomato">
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -209,24 +259,20 @@
 
           <WrapPanel Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GroupFullsizeHeader}" Content="Безопасность" />
-            <mah:Tile Title="Этаж 2" Style="{StaticResource QuadSizeTileStyle}" Background="Firebrick" Margin="4">
+            <mah:Tile Title="Этаж 2" Style="{StaticResource QuadSizeTileStyle}" Background="Firebrick" >
               <mah:Tile.Content>
                 <MediaElement Source="Resources\Video\Camera02.mp4" IsMuted="True" />
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Style="{StaticResource DoubleSizeTileStyle}" Background="Tomato" Margin="4">
+            <mah:Tile Style="{StaticResource DoubleSizeTileStyle}" Background="Firebrick">
               <mah:Tile.Content>
                 <TextBlock FontSize="64" Text="SOS" />
               </mah:Tile.Content>
             </mah:Tile>
 
-            <mah:Tile Title="Камеры" Style="{StaticResource FullSizeTileStyle}" Background="CornflowerBlue" Margin="4">
+            <mah:Tile x:Name="CameraButton" Title="Камеры" Style="{StaticResource FullSizeTileStyle}" Background="CornflowerBlue" Click="CameraButton_Click">
               <mah:Tile.Content>
-                <Rectangle Width="64" Height="64">
-                  <Rectangle.Fill>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_camera}" />
-                  </Rectangle.Fill>
-                </Rectangle>
+                <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\Camera.png" />
               </mah:Tile.Content>
             </mah:Tile>
           </WrapPanel>
@@ -236,23 +282,378 @@
       <TabItem x:Name="AnnoncementsPage">
         <Grid>
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+          </Grid.RowDefinitions>
+          <TabControl Background="Transparent" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <TabItem Header="Все">
+              <ItemsControl ItemsSource="{Binding Annoncements}">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <WrapPanel  Height="Auto" VerticalAlignment="Stretch"/>
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <views:Annoncement Margin="10" Width="360" Height="280" />
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </TabItem>
+            <TabItem Header="Непрочитанные">
+              <ItemsControl ItemsSource="{Binding UnreadAnnoncements}">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <WrapPanel  Height="Auto" VerticalAlignment="Stretch"/>
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <views:Annoncement Margin="10" Width="360" Height="280" />
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </TabItem>
+            <TabItem Header="Важные">
+              <ItemsControl ItemsSource="{Binding ImportantAnnoncements}">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <WrapPanel  Height="Auto" VerticalAlignment="Stretch"/>
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <views:Annoncement Margin="10" Width="360" Height="280" />
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </TabItem>
+          </TabControl>
+          <Button Name="AddAnnoncement" Style="{StaticResource ActionButton}" Background="#FB5410" Foreground="White"
+                  Grid.Column="1" Grid.Row="4" Width="64" Height="64" Margin="0 0 0 10">
+            <Button.Content>
+              <Rectangle Width="24" Height="24">
+                <Rectangle.Resources>
+                  <SolidColorBrush x:Key="BlackBrush" Color="White" />
+                </Rectangle.Resources>
+                <Rectangle.Fill>
+                  <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}" />
+                </Rectangle.Fill>
+              </Rectangle>
+            </Button.Content>
+          </Button>
+        </Grid>
+      </TabItem>
+
+      <TabItem x:Name="CounterPage">
+        <views:Counter Margin="10" DataContext="{Binding Path=Counters}"/>
+      </TabItem>
+
+      <TabItem x:Name="ReportsPage">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+          </Grid.RowDefinitions>
+          <ListBox Grid.Column="0" Grid.RowSpan="2" Background="#3d3d40" ItemsSource="{Binding Reports}" SelectionChanged="ReportsListBox_SelectionChanged">
+            <ListBox.Effect>
+              <DropShadowEffect BlurRadius="40" />
+            </ListBox.Effect>
+            <ListBox.ItemContainerStyle>
+              <Style TargetType="{x:Type ListBoxItem}">
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Margin" Value="10"/>
+              </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="Vertical"/>
+              </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                  <Rectangle Width="32" Height="32">
+                    <Rectangle.Fill>
+                      <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_page}" />
+                    </Rectangle.Fill>
+                  </Rectangle>
+                  <StackPanel Orientation="Vertical" Margin="10 0">
+                    <TextBlock Foreground="White" TextWrapping="Wrap" FontSize="16" Text="{Binding Path=Title}"/>
+                    <TextBlock Foreground="LightGray" FontSize="14" Text="{Binding Path=PublishDate, StringFormat=Дата публикации: {0}}"/>
+                  </StackPanel>
+                </StackPanel>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+          <RichTextBox x:Name="ReportPreview" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="20 0" Visibility="Hidden">
+            <RichTextBox.Effect>
+              <DropShadowEffect BlurRadius="40" />
+            </RichTextBox.Effect>
+          </RichTextBox>
+          <Button x:Name="PrintReport" Style="{StaticResource ActionButton}" Background="#0054FF" Foreground="White" Visibility="Hidden"
+                  Grid.Column="2" Grid.Row="1" Width="64" Height="64" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button.Content>
+              <Rectangle Width="24" Height="24">
+                <Rectangle.Resources>
+                  <SolidColorBrush x:Key="BlackBrush" Color="White" />
+                </Rectangle.Resources>
+                <Rectangle.Fill>
+                  <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_printer}" />
+                </Rectangle.Fill>
+              </Rectangle>
+            </Button.Content>
+          </Button>
+        </Grid>
+      </TabItem>
+
+      <TabItem x:Name="SpecialistPage">
+        <StackPanel x:Name="ApplicationParameters" Orientation="Vertical" Background="#3d3d40" Width="640" HorizontalAlignment="Left">
+          <StackPanel.Effect>
+            <DropShadowEffect BlurRadius="40" />
+          </StackPanel.Effect>
+          <Label Foreground="White" FontSize="24" Content="Оформление заявления" Margin="10" />
+
+          <!--<StackPanel Name="SpecialistWasOrdered" Visibility="Collapsed" >
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="35" FontSize="24" Foreground="White">
+              Обращение отправлено.
+            </TextBlock>
+          </StackPanel>-->
+
+          <StackPanel Name="OrderWizard" Margin="20 0">
+            <TextBlock Name="FirstStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Foreground="LightGray">
+              1. Выберите тип специалиста
+            </TextBlock>
+
+            <ComboBox Name="FirstStepInput" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310" Margin="0,10,0,0" FontSize="18" Grid.Row="1" SelectionChanged="FirstStepInput_OnSelected">
+              <ComboBoxItem>Сантехник</ComboBoxItem>
+              <ComboBoxItem>Электрик</ComboBoxItem>
+              <ComboBoxItem>Газовик</ComboBoxItem>
+            </ComboBox>
+
+            <TextBlock Name="SecondStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,40,0,0" FontSize="20" Foreground="LightGray">
+              2. Выберите доступного специалиста
+            </TextBlock>
+
+            <ComboBox Name="SecondStepInput" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310" Margin="0,10,0,0" FontSize="18" SelectionChanged="SecondStepInput_OnSelectionChanged" Grid.Row="1">
+              <ComboBoxItem>Печёнкин П.П. </ComboBoxItem>
+              <ComboBoxItem>Кочерыжкин К.К.</ComboBoxItem>
+              <ComboBoxItem>Пупкин В.С.</ComboBoxItem>
+            </ComboBox>
+
+            <TextBlock Name="ThirdStep" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,40,0,0" FontSize="20" Foreground="LightGray">
+              3. Опишите суть обращения и удобное время обслуживания
+            </TextBlock>
+
+            <TextBox Name="ThirdStepInput" FontSize="18" Width="600" Height="140" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Left"  Margin="0,20,0,0"></TextBox>
+
+            <Button Name="SendOrder" Width="200" Height="40" Margin="0,20,0,0"
+                    VerticalAlignment="Top" HorizontalAlignment="Center" 
+                    Background="CornflowerBlue" FontSize="16" Foreground="White" 
+                    Click="SendOrder_OnClick">
+              Отправить заявку
+            </Button>
+          </StackPanel>
+        </StackPanel>
+        
+
+        </TabItem>
+
+      <TabItem x:Name="ProblemReportPage">
+        <StackPanel>
+          <TextBlock Name="SelectReportType"  FontSize="20" Foreground="LightGray" Margin="10,20,0,0" HorizontalAlignment="Left"> Выберите тип поломки</TextBlock>
+          <ComboBox HorizontalAlignment="Left" Width="400" Margin="10,10,0,0">
+            <ComboBoxItem>Жалоба на неисправность лифта</ComboBoxItem>
+            <ComboBoxItem>Заявление о поломке мусоропровода</ComboBoxItem>
+          </ComboBox>
+
+          <Button Name="GenerateReportButton" HorizontalAlignment="Left" Width="200" Margin="10,30,0,0" Click="GenerateProblemReport_OnClick">
+            Сгенерировать обращение
+          </Button>
+
+          <TextBox Name="ReportBodyTextBox" HorizontalAlignment="Left" Width="400" Height="400" Margin="10,30,0,0" Visibility="Collapsed" TextWrapping="Wrap"></TextBox>
+
+          <Button Name="SendReportButton" HorizontalAlignment="Left" Width="200" Margin="10,30,0,0" Visibility="Collapsed" Click="SendReportButton_OnClick">Отправить обращение</Button>
+        </StackPanel>
+      </TabItem>
+      
+      <TabItem x:Name="CamerasPage">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="520" />
             <ColumnDefinition Width="*" />
           </Grid.ColumnDefinitions>
+          <WrapPanel Width="520">
+            <mah:Tile Title="Этаж 7" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera07.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Этаж 6" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera08.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Этаж 5" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera01.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Этаж 4" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera02.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Этаж 3" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera03.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Этаж 2" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera04.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Этаж 1" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera05.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Лифт" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera06.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Вход" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera09.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+          </WrapPanel>
+          <StackPanel Orientation="Vertical" Grid.Column="1" Margin="40 8">
+            <MediaElement HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        Source="Resources\Video\Camera02.mp4" IsMuted="True" >
+              <MediaElement.Effect>
+                <DropShadowEffect BlurRadius="40" />
+              </MediaElement.Effect>
+            </MediaElement>
+            <Label Foreground="White" FontSize="24" Content="Камера Этаж 3" Margin="0 20"/>
+          </StackPanel>
+          <Button Style="{StaticResource ActionButton}" Background="Firebrick" Foreground="White"
+                  Grid.Column="1" Grid.Row="1" Width="64" Height="64" Margin="40"
+                  HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button.Content>
+              <Rectangle Width="24" Height="24">
+                <Rectangle.Resources>
+                  <SolidColorBrush x:Key="BlackBrush" Color="White" />
+                </Rectangle.Resources>
+                <Rectangle.Fill>
+                  <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_alert}" />
+                </Rectangle.Fill>
+              </Rectangle>
+            </Button.Content>
+          </Button>
+        </Grid>
+      </TabItem>
 
-          <ListView Grid.Column="0" x:Name="AnnoncementList" Background="#1D1D20" BorderThickness="0" ItemsSource="{Binding Annoncement}">
-            <ListView.ItemTemplate>
+      <TabItem x:Name="PollsPage">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+          </Grid.RowDefinitions>
+          <ListBox x:Name="PollList" Grid.Column="0" Grid.RowSpan="2" Background="#3d3d40" ItemsSource="{Binding Questions}" SelectionChanged="PollList_SelectionChanged">
+            <ListBox.Effect>
+              <DropShadowEffect BlurRadius="40" />
+            </ListBox.Effect>
+            <ListBox.ItemContainerStyle>
+              <Style TargetType="{x:Type ListBoxItem}">
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Margin" Value="10"/>
+              </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="Vertical"/>
+              </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
               <DataTemplate>
-                <TextBlock Foreground="White" FontSize="16" Text="{Binding Title}" />
+                <StackPanel Orientation="Horizontal">
+                  <Rectangle Width="32" Height="32">
+                    <Rectangle.Fill>
+                      <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_question}" />
+                    </Rectangle.Fill>
+                  </Rectangle>
+                  <StackPanel Orientation="Vertical" Margin="10 0">
+                    <TextBlock Foreground="White" TextWrapping="Wrap" FontSize="16" Text="{Binding Path=Title}"/>
+                    <TextBlock Foreground="LightGray" FontSize="14" Text="{Binding Path=PublishDate, StringFormat=Дата публикации: {0}}"/>
+                  </StackPanel>
+                </StackPanel>
               </DataTemplate>
-            </ListView.ItemTemplate>
-          </ListView>
+            </ListBox.ItemTemplate>
+          </ListBox>
 
-          <TextBlock Grid.Column="1" Foreground="White" FontSize="16" Text="{Binding ElementName=AnnoncementList, Path=SelectedItem.Text}" />
+          <StackPanel x:Name="PollInfo" Orientation="Vertical" Grid.Column="1" Margin="20 0">
+            <TextBlock Foreground="White" FontSize="20" TextAlignment="Justify" TextWrapping="Wrap" Text="{Binding ElementName=PollList, Path=SelectedItem.Text}" />
+            <ListBox Margin="0 20" Background="Transparent" ItemsSource="{Binding ElementName=PollList, Path=SelectedItem.Answers}" SelectedIndex="0">
+              <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                  <Setter Property="Padding" Value="5"/>
+                  <Setter Property="Margin" Value="10"/>
+                </Style>
+              </ListBox.ItemContainerStyle>
+              <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+              </ListBox.ItemsPanel>
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <StackPanel Orientation="Horizontal" Margin="10">
+                    <Rectangle Width="32" Height="32">
+                      <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_checkmark}" />
+                      </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock Foreground="White" TextWrapping="Wrap" Margin="10 0" FontSize="16" Text="{Binding}"/>
+                  </StackPanel>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+          </StackPanel>
+          
+          <Button x:Name="VoteButton" Style="{StaticResource ActionButton}" Background="Green" Foreground="White" Visibility="Hidden"
+                  Grid.Column="2" Grid.Row="1" Width="64" Height="64" HorizontalAlignment="Left" VerticalAlignment="Center" Click="VoteButton_Click">
+            <Button.Content>
+              <Rectangle Width="24" Height="24">
+                <Rectangle.Resources>
+                  <SolidColorBrush x:Key="BlackBrush" Color="White" />
+                </Rectangle.Resources>
+                <Rectangle.Fill>
+                  <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_checkmark}" />
+                </Rectangle.Fill>
+              </Rectangle>
+            </Button.Content>
+          </Button>
         </Grid>
       </TabItem>
     </TabControl>
-    
-    
+
+
   </Grid>
 </mah:MetroWindow>

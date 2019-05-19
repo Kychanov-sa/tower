@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Windows.Interop;
+using Tower.Core.Threading;
+using System.Timers;
+using System.Windows.Threading;
 
 namespace Tower.Views
 {
@@ -26,6 +29,9 @@ namespace Tower.Views
 
     private bool _isClosing;
     private HwndSource _sourceWindow;
+    private WatchdogTimer _emergencyTimer;
+    private DispatcherTimer _timeUpdateTimer;
+    private ViewModels.LockWindow _viewModel;
 
     public LockWindow()
     {
@@ -43,9 +49,37 @@ namespace Tower.Views
       this.SourceInitialized += SourceInitializedEventHandler;
       this.Closing += ClosingEventHandler;
       this.Closed += ClosedEventHandler;
+
+      _viewModel = new ViewModels.LockWindow();
+      this.DataContext = _viewModel;
       InputManager.Current.PreProcessInput += GlobalClickEventHandler;
 
       InitializeComponent();
+
+      _emergencyTimer = new WatchdogTimer(30 * 1000, Emergency_Start);
+      _emergencyTimer.Start();
+
+      _timeUpdateTimer = new DispatcherTimer();
+      _timeUpdateTimer.Interval = new TimeSpan(0, 0, 30);
+      _timeUpdateTimer.IsEnabled = true;
+      _timeUpdateTimer.Tick += TimeUpdateTimer_Tick; ;
+      _timeUpdateTimer.Start();
+    }
+
+    private void TimeUpdateTimer_Tick(object sender, EventArgs e)
+    {
+      this.Dispatcher.Invoke(new Action(() =>
+      {
+        _viewModel.UpdateTime(DateTime.Now);
+      }));
+    }
+
+    private void Emergency_Start(object sender, ElapsedEventArgs e)
+    {
+      this.Dispatcher.Invoke(new Action(() =>
+      {
+        Emergency.IsOpen = true;
+      }));
     }
 
     private void SourceInitializedEventHandler(object sender, EventArgs e)
@@ -60,6 +94,17 @@ namespace Tower.Views
       InputManager.Current.PreProcessInput -= GlobalClickEventHandler;
       if (_sourceWindow != null)
         _sourceWindow.RemoveHook(WndProc);
+
+      if (_emergencyTimer != null)
+      {
+        _emergencyTimer.Stop();
+        _emergencyTimer.Dispose();
+      }
+
+      if (_timeUpdateTimer != null)
+      {
+        _timeUpdateTimer.Stop();
+      }
     }
 
     private void GlobalClickEventHandler(object sender, PreProcessInputEventArgs e)
@@ -92,6 +137,11 @@ namespace Tower.Views
           break;
       }
       return IntPtr.Zero;
+    }
+
+    private void CloseEmergencyButton_Click(object sender, RoutedEventArgs e)
+    {
+      Emergency.IsOpen = false;
     }
   }
 }

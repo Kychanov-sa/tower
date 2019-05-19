@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="Tower.Views.Annoncement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tower.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="240" d:DesignWidth="320" Background="#3d3d40" Foreground="White">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Resources/Icons.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style x:Key="IconButton" TargetType="{x:Type Button}">
+        <Setter Property="Width" Value="20" />
+        <Setter Property="Height" Value="26" />
+        <Setter Property="Opacity" Value=".4" />
+        <Style.Triggers>
+          <Trigger Property="IsMouseOver" Value="True">
+            <Setter Property="Opacity" Value="1.0" />
+          </Trigger>
+        </Style.Triggers>
+      </Style>
+      
+    </ResourceDictionary>
+  </UserControl.Resources>
+  <UserControl.Effect>
+      <DropShadowEffect BlurRadius="40" />
+  </UserControl.Effect>
+  
+  <Grid Margin="16">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="30" />
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="30" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+    <Rectangle Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 6" Visibility="{Binding FlagVisibility}">
+      <Rectangle.Fill>
+        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_flag_wavy}" />
+      </Rectangle.Fill>
+    </Rectangle>
+    <Button Grid.Column="2" Style="{StaticResource IconButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 4" BorderThickness="0" Background="Transparent">
+      <Button.Content>
+        <Rectangle Width="20" Height="24">
+        <Rectangle.Fill>
+          <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
+        </Rectangle.Fill>
+        </Rectangle>
+      </Button.Content>
+    </Button>
+    <StackPanel Grid.Column="1" Orientation="Vertical">
+      <TextBlock FontSize="18" TextWrapping="NoWrap" FontWeight="{Binding TitleWeight}" Text="{Binding Title}" />
+      <TextBlock FontSize="14" TextWrapping="NoWrap" Foreground="Gray" Text="{Binding PublishDate}" />
+    </StackPanel>
+    
+    <ScrollViewer Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Padding="0 0 6 0">
+      <TextBlock FontSize="16" Foreground="LightGray" TextWrapping="Wrap" TextAlignment="Justify" Text="{Binding Text}" />
+    </ScrollViewer>
+  </Grid>
+</UserControl>
