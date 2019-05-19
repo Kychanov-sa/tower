@@ -234,7 +234,7 @@
               </mah:Tile.Content>
             </mah:Tile>
 
-            <mah:Tile Title="Уведомить о поломке" Style="{StaticResource DoubleSizeTileStyle}" Background="DarkOliveGreen">
+            <mah:Tile Title="Уведомить о поломке" Style="{StaticResource DoubleSizeTileStyle}" Background="DarkOliveGreen" Click="ProblemReport_OnClick">
               <mah:Tile.Content>
                 <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\BrokenHouse.png" />
               </mah:Tile.Content>
@@ -462,6 +462,24 @@
 
         </TabItem>
 
+      <TabItem x:Name="ProblemReportPage">
+        <StackPanel>
+          <TextBlock Name="SelectReportType"  FontSize="20" Foreground="LightGray" Margin="10,20,0,0" HorizontalAlignment="Left"> Выберите тип поломки</TextBlock>
+          <ComboBox HorizontalAlignment="Left" Width="400" Margin="10,10,0,0">
+            <ComboBoxItem>Жалоба на неисправность лифта</ComboBoxItem>
+            <ComboBoxItem>Заявление о поломке мусоропровода</ComboBoxItem>
+          </ComboBox>
+
+          <Button Name="GenerateReportButton" HorizontalAlignment="Left" Width="200" Margin="10,30,0,0" Click="GenerateProblemReport_OnClick">
+            Сгенерировать обращение
+          </Button>
+
+          <TextBox Name="ReportBodyTextBox" HorizontalAlignment="Left" Width="400" Height="400" Margin="10,30,0,0" Visibility="Collapsed" TextWrapping="Wrap"></TextBox>
+
+          <Button Name="SendReportButton" HorizontalAlignment="Left" Width="200" Margin="10,30,0,0" Visibility="Collapsed" Click="SendReportButton_OnClick">Отправить обращение</Button>
+        </StackPanel>
+      </TabItem>
+      
       <TabItem x:Name="CamerasPage">
         <Grid>
           <Grid.ColumnDefinitions>

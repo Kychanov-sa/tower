@@ -239,5 +239,56 @@ namespace Tower
       PageTitle.Text = "Камеры";
       BackButton.Visibility = Visibility.Visible;
     }
+
+    #region ProblemReport
+
+    private void ProblemReport_OnClick(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = ProblemReportPage;
+      PageTitle.Text = "Уведомить о проблеме";
+      BackButton.Visibility = Visibility.Visible;
+
+      GenerateReportButton.Visibility = Visibility.Visible;
+      ReportBodyTextBox.Visibility = Visibility.Collapsed;
+      SendReportButton.Visibility = Visibility.Collapsed;
+      SelectReportType.IsEnabled = true;
+    }
+
+    private void GenerateProblemReport_OnClick(object sender, RoutedEventArgs e)
+    {
+      GenerateReportButton.Visibility = Visibility.Collapsed;
+      ReportBodyTextBox.Visibility = Visibility.Visible;
+      ReportBodyTextBox.Text = ReportTemplate;
+      SendReportButton.Visibility = Visibility.Visible;
+      SelectReportType.IsEnabled = false;
+
+
+    }
+
+    private string ReportTemplate =
+      @"Руководителю
+ОАО «Домоуправляющая компания
+Приокского района»
+от Пупкина Василия Петровича
+г.Н.Новгород, ул. Грязная, 
+д.666, кв 13
+
+Претензия
+
+Я, Пупкин Василий Петрович, собственник квартиры №13 проживаю в доме, обслуживаемым Вашей организацией. Являясь исполнителем услуг по содержанию общего имущества,   Ваша организация независимо от формы собственности и организационно- правовой формы обязана предоставить потребителю услуги, соответствующие по качеству обязательным требованиям стандартов, санитарных правил и норм, установленным нормативам и условиям договора, а также информации о жилищных услугах.
+
+В соответствии с Приложением №2 <<Правил и норм технической эксплуатации жилищного фонда>>, утвержденных Постановлением Госстроя РФ от 27.09.2003 года № 170, неисправности лифта должны исправляться в течение суток с момента поступления заявки.";
+
+    private void SendReportButton_OnClick(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = StartPage;
+      PageTitle.Text = "Система управления многоквартирным домом";
+      BackButton.Visibility = Visibility.Collapsed;
+
+      _notifier.ShowSuccess("Уведомление о поломке успешно отправлено.");
+    }
+
+    #endregion
+
   }
 }
