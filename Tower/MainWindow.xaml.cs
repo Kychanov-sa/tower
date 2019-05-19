@@ -142,6 +142,19 @@ namespace Tower
       BackButton.Visibility = Visibility.Collapsed;
     }
 
+    private void ColdWater_Click(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = CounterPage;
+      PageTitle.Text = "Холодная вода";
+      _viewModel.ApplyColdWater();
+      BackButton.Visibility = Visibility.Visible;
+    }
+
+    private void HotWater_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
     private void SendOrder_OnClick(object sender, RoutedEventArgs e)
     {
       //SpecialistWasOrdered.Visibility = Visibility.Visible;

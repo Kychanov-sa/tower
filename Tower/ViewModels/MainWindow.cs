@@ -11,9 +11,12 @@ namespace Tower.ViewModels
   {
     public ObservableCollection<Report> Reports { get; set; } = new ObservableCollection<ViewModels.Report>();
     public ObservableCollection<Annoncement> Annoncements { get; set; } = new ObservableCollection<ViewModels.Annoncement>();
+    public ObservableCollection<Counter> Counters { get; protected set; } = new ObservableCollection<Counter>();
 
     public IEnumerable<Annoncement> UnreadAnnoncements { get { return from a in Annoncements where !a.IsRead select a; } }
     public IEnumerable<Annoncement> ImportantAnnoncements { get { return from a in Annoncements where a.IsImportant select a; } }
+
+    protected IList<Counter> CountersForColdWater { get; set; } = new List<Counter>();
 
     public MainWindow()
     {
@@ -43,6 +46,15 @@ namespace Tower.ViewModels
         PublishDate = DateTime.Now.AddDays(-4).AddHours(-1).AddMinutes(-32),
         IsImportant = false
       });
+      var startDate = new DateTime(2018, 1, 1, 0, 0, 0);
+      var randomizer = new Random();
+      int prevRandomValue = 0;
+      for (int i = 0; i != 12; i++)
+      {
+        int currentRandomValue = randomizer.Next(100, 500);
+        CountersForColdWater.Add(new Counter(startDate.AddMonths(i), prevRandomValue + currentRandomValue));
+        prevRandomValue += currentRandomValue;
+      }
 
       Reports.Add(new ViewModels.Report()
       {
@@ -70,6 +82,13 @@ namespace Tower.ViewModels
     {
       annoncement.IsRead = true;
       OnPropertyChanged("UnreadAnnoncements");
+    }
+
+    public void ApplyColdWater()
+    {
+      Counters.Clear();
+      Counters = new ObservableCollection<Counter>(CountersForColdWater);
+      OnPropertyChanged(nameof(Counters));
     }
   }
 }

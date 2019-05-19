@@ -152,7 +152,7 @@
           </Grid.ColumnDefinitions>
           <WrapPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GroupFullsizeHeader}" Content="Счётчики" />
-            <mah:Tile Title="Холодная вода" Style="{StaticResource FullSizeTileStyle}" Background="DarkCyan">
+            <mah:Tile x:Name="ColdWater" Title="Холодная вода" Style="{StaticResource FullSizeTileStyle}" Background="DarkCyan" Click="ColdWater_Click">
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -358,6 +358,10 @@
 
           <TextBlock Grid.Column="1" Foreground="White" FontSize="16" Text="{Binding ElementName=AnnoncementList, Path=SelectedItem.Text}" />
         </Grid>-->
+      </TabItem>
+
+      <TabItem x:Name="CounterPage">
+        <views:Counter Margin="10" DataContext="{Binding Path=Counters}"/>
       </TabItem>
 
       <TabItem x:Name="ReportsPage">
