@@ -97,6 +97,9 @@ namespace Tower
       this.Top = (double)primaryScreen.WorkingArea.Top;
       this.Width = (double)primaryScreen.WorkingArea.Width;
       this.Height = (double)primaryScreen.WorkingArea.Height;
+
+      var startWindow = new Views.StartWindow();
+      startWindow.ShowDialog();
     }
 
     private void Annoncements_Click(object sender, RoutedEventArgs e)
