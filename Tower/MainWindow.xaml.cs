@@ -208,9 +208,11 @@ namespace Tower
 
     private void ReportsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-      if (sender is ListBox reportList)
+      var reportList = sender as ListBox;
+      if (reportList != null)
       {
-        if (reportList.SelectedItem is ViewModels.Report report)
+        var report = reportList.SelectedItem as ViewModels.Report;
+        if (report != null)
         {          
           TextRange reportDocument = new TextRange(ReportPreview.Document.ContentStart, ReportPreview.Document.ContentEnd);
           using (var fs = new FileStream(report.FileName, FileMode.Open))
