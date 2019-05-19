@@ -227,5 +227,12 @@ namespace Tower
         }
       }
     }
+
+    private void CameraButton_Click(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = CamerasPage;
+      PageTitle.Text = "Камеры";
+      BackButton.Visibility = Visibility.Visible;
+    }
   }
 }

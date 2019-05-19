@@ -264,7 +264,7 @@
               </mah:Tile.Content>
             </mah:Tile>
 
-            <mah:Tile Title="Камеры" Style="{StaticResource FullSizeTileStyle}" Background="CornflowerBlue">
+            <mah:Tile x:Name="CameraButton" Title="Камеры" Style="{StaticResource FullSizeTileStyle}" Background="CornflowerBlue" Click="CameraButton_Click">
               <mah:Tile.Content>
                 <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\Camera.png" />
               </mah:Tile.Content>
@@ -341,23 +341,6 @@
             </Button.Content>
           </Button>
         </Grid>
-
-        <!--<Grid>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
-            <ColumnDefinition Width="*" />
-          </Grid.ColumnDefinitions>
-
-          <ListView Grid.Column="0" x:Name="AnnoncementList" Background="#1D1D20" BorderThickness="0" ItemsSource="{Binding Annoncement}">
-            <ListView.ItemTemplate>
-              <DataTemplate>
-                <TextBlock Foreground="White" FontSize="16" Text="{Binding Title}" />
-              </DataTemplate>
-            </ListView.ItemTemplate>
-          </ListView>
-
-          <TextBlock Grid.Column="1" Foreground="White" FontSize="16" Text="{Binding ElementName=AnnoncementList, Path=SelectedItem.Text}" />
-        </Grid>-->
       </TabItem>
 
       <TabItem x:Name="CounterPage">
@@ -480,6 +463,82 @@
         </TabItem>
 
       <TabItem x:Name="CamerasPage">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="520" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <WrapPanel Width="520">
+            <mah:Tile Title="Этаж 7" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera07.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Этаж 6" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera08.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Этаж 5" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera01.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Этаж 4" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera02.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Этаж 3" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera03.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Этаж 2" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera04.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Этаж 1" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera05.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Лифт" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera06.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+            <mah:Tile Title="Вход" Style="{StaticResource FullSizeTileStyle}">
+              <mah:Tile.Background>
+                <ImageBrush ImageSource="Resources\Images\Camera09.jpg" />
+              </mah:Tile.Background>
+            </mah:Tile>
+          </WrapPanel>
+          <StackPanel Orientation="Vertical" Grid.Column="1" Margin="40 8">
+            <MediaElement HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        Source="Resources\Video\Camera02.mp4" IsMuted="True" >
+              <MediaElement.Effect>
+                <DropShadowEffect BlurRadius="40" />
+              </MediaElement.Effect>
+            </MediaElement>
+            <Label Foreground="White" FontSize="24" Content="Камера Этаж 3" Margin="0 20"/>
+          </StackPanel>
+          <Button Style="{StaticResource ActionButton}" Background="Firebrick" Foreground="White"
+                  Grid.Column="1" Grid.Row="1" Width="64" Height="64" Margin="40"
+                  HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button.Content>
+              <Rectangle Width="24" Height="24">
+                <Rectangle.Resources>
+                  <SolidColorBrush x:Key="BlackBrush" Color="White" />
+                </Rectangle.Resources>
+                <Rectangle.Fill>
+                  <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_alert}" />
+                </Rectangle.Fill>
+              </Rectangle>
+            </Button.Content>
+          </Button>
+        </Grid>
       </TabItem>
     </TabControl>
 
