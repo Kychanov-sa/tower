@@ -51,9 +51,12 @@
       <RowDefinition Height="*"/>
       <RowDefinition Height="100"/>
     </Grid.RowDefinitions>
-    <ScrollViewer Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
+    <ScrollViewer  Background="LightGray" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
       <chartingToolkit:Chart HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ChartStyle}">
         <chartingToolkit:LineSeries x:Name="graph" DependentValuePath="Value" IndependentValuePath="Date" ItemsSource="{Binding}" IsSelectionEnabled="True" DataPointStyle="{StaticResource DataPointsStyle}"/>
+       <chartingToolkit:Chart.Axes>
+          <chartingToolkit:DateTimeAxis Orientation="X" Interval="1" IntervalType="{Binding IntervalType, FallbackValue=Months}"></chartingToolkit:DateTimeAxis>
+       </chartingToolkit:Chart.Axes>
       </chartingToolkit:Chart>
     </ScrollViewer>
 
