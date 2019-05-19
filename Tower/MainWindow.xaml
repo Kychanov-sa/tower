@@ -190,7 +190,10 @@
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GroupFullsizeHeader}" Content="Информация" />
             <mah:Tile Title="Объявления" Style="{StaticResource FullSizeTileStyle}" Background="CornflowerBlue" Click="Annoncements_Click">
               <mah:Tile.Content>
-                <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\Annoncement.png" />
+                <Canvas Width="140" Height="140">
+                  <Image Grid.RowSpan="2" Canvas.Left="38" Canvas.Top="38" Width="64" Height="64" Source="Resources\Icons\Annoncement.png" />
+                  <TextBlock Foreground="White" FontSize="28" Canvas.Right="0" TextAlignment="Center" Background="Orange" Width="40" Canvas.Top="0" Text="{Binding UnreadAnnoncements.Count}"/>
+                </Canvas>
               </mah:Tile.Content>
             </mah:Tile>
             <mah:Tile Title="Отчёты" Style="{StaticResource FullSizeTileStyle}" Background="Magenta" Click="Reports_Click">
@@ -202,13 +205,16 @@
                 </Rectangle>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Опросы" Style="{StaticResource FullSizeTileStyle}" Background="Green">
+            <mah:Tile x:Name="PollButton" Title="Опросы" Style="{StaticResource FullSizeTileStyle}" Background="Green" Click="PollButton_Click">
               <mah:Tile.Content>
-                <Rectangle Width="48" Height="64">
-                  <Rectangle.Fill>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_checkmark}" />
-                  </Rectangle.Fill>
-                </Rectangle>
+                <Canvas Width="140" Height="140">
+                  <Rectangle Width="48" Height="64" Canvas.Left="46" Canvas.Top="38">
+                    <Rectangle.Fill>
+                      <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_checkmark}" />
+                    </Rectangle.Fill>
+                  </Rectangle>
+                  <TextBlock Foreground="White" FontSize="28" Canvas.Right="0" TextAlignment="Center" Background="Orange" Width="40" Canvas.Top="0" Text="{Binding Questions.Count}"/>
+                </Canvas>
               </mah:Tile.Content>
             </mah:Tile>
             <mah:Tile Title="Справка" Style="{StaticResource FullSizeTileStyle}" Background="DarkOrchid" >
@@ -534,6 +540,94 @@
                 </Rectangle.Resources>
                 <Rectangle.Fill>
                   <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_alert}" />
+                </Rectangle.Fill>
+              </Rectangle>
+            </Button.Content>
+          </Button>
+        </Grid>
+      </TabItem>
+
+      <TabItem x:Name="PollsPage">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+          </Grid.RowDefinitions>
+          <ListBox x:Name="PollList" Grid.Column="0" Grid.RowSpan="2" Background="#3d3d40" ItemsSource="{Binding Questions}" SelectionChanged="PollList_SelectionChanged">
+            <ListBox.Effect>
+              <DropShadowEffect BlurRadius="40" />
+            </ListBox.Effect>
+            <ListBox.ItemContainerStyle>
+              <Style TargetType="{x:Type ListBoxItem}">
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Margin" Value="10"/>
+              </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="Vertical"/>
+              </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                  <Rectangle Width="32" Height="32">
+                    <Rectangle.Fill>
+                      <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_question}" />
+                    </Rectangle.Fill>
+                  </Rectangle>
+                  <StackPanel Orientation="Vertical" Margin="10 0">
+                    <TextBlock Foreground="White" TextWrapping="Wrap" FontSize="16" Text="{Binding Path=Title}"/>
+                    <TextBlock Foreground="LightGray" FontSize="14" Text="{Binding Path=PublishDate, StringFormat=Дата публикации: {0}}"/>
+                  </StackPanel>
+                </StackPanel>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+
+          <StackPanel x:Name="PollInfo" Orientation="Vertical" Grid.Column="1" Margin="20 0">
+            <TextBlock Foreground="White" FontSize="20" TextAlignment="Justify" TextWrapping="Wrap" Text="{Binding ElementName=PollList, Path=SelectedItem.Text}" />
+            <ListBox Margin="0 20" Background="Transparent" ItemsSource="{Binding ElementName=PollList, Path=SelectedItem.Answers}" SelectedIndex="0">
+              <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                  <Setter Property="Padding" Value="5"/>
+                  <Setter Property="Margin" Value="10"/>
+                </Style>
+              </ListBox.ItemContainerStyle>
+              <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+              </ListBox.ItemsPanel>
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <StackPanel Orientation="Horizontal" Margin="10">
+                    <Rectangle Width="32" Height="32">
+                      <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_checkmark}" />
+                      </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock Foreground="White" TextWrapping="Wrap" Margin="10 0" FontSize="16" Text="{Binding}"/>
+                  </StackPanel>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+          </StackPanel>
+          
+          <Button x:Name="VoteButton" Style="{StaticResource ActionButton}" Background="Green" Foreground="White" Visibility="Hidden"
+                  Grid.Column="2" Grid.Row="1" Width="64" Height="64" HorizontalAlignment="Left" VerticalAlignment="Center" Click="VoteButton_Click">
+            <Button.Content>
+              <Rectangle Width="24" Height="24">
+                <Rectangle.Resources>
+                  <SolidColorBrush x:Key="BlackBrush" Color="White" />
+                </Rectangle.Resources>
+                <Rectangle.Fill>
+                  <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_checkmark}" />
                 </Rectangle.Fill>
               </Rectangle>
             </Button.Content>

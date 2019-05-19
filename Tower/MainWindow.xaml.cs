@@ -239,5 +239,39 @@ namespace Tower
       PageTitle.Text = "Камеры";
       BackButton.Visibility = Visibility.Visible;
     }
+
+    private void PollButton_Click(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = PollsPage;
+      PageTitle.Text = "Опросы";
+      BackButton.Visibility = Visibility.Visible;
+    }
+
+    private void PollList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      var pollList = sender as ListBox;
+      if (pollList != null)
+      {
+        var question = pollList.SelectedItem as ViewModels.Question;
+        if (question != null)
+        {
+
+          PollInfo.Visibility = Visibility.Visible;
+          VoteButton.Visibility = Visibility.Visible;
+        } else {
+          PollInfo.Visibility = Visibility.Hidden;
+          VoteButton.Visibility = Visibility.Hidden;
+        }
+      }
+    }
+
+    private void VoteButton_Click(object sender, RoutedEventArgs e)
+    {
+      MainWindowPages.SelectedItem = StartPage;
+      PageTitle.Text = "Система управления многоквартирным домом";
+      BackButton.Visibility = Visibility.Collapsed;
+
+      _notifier.ShowSuccess("Ваш голос принят.");
+    }
   }
 }

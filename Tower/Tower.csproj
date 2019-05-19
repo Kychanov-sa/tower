@@ -91,6 +91,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ViewModels\LockWindow.cs" />
+    <Compile Include="ViewModels\Question.cs" />
     <Compile Include="ViewModels\Report.cs" />
     <Compile Include="ViewModels\Annoncement.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

@@ -10,6 +10,7 @@ namespace Tower.ViewModels
     public ObservableCollection<Report> Reports { get; set; } = new ObservableCollection<ViewModels.Report>();
     public ObservableCollection<Annoncement> Annoncements { get; set; } = new ObservableCollection<ViewModels.Annoncement>();
     public ObservableCollection<Counter> Counters { get; protected set; } = new ObservableCollection<Counter>();
+    public ObservableCollection<Question> Questions { get; protected set; } = new ObservableCollection<Question>();
 
     public IEnumerable<Annoncement> UnreadAnnoncements { get { return from a in Annoncements where !a.IsRead select a; } }
     public IEnumerable<Annoncement> ImportantAnnoncements { get { return from a in Annoncements where a.IsImportant select a; } }
@@ -49,6 +50,18 @@ namespace Tower.ViewModels
         PublishDate = DateTime.Now.AddDays(-4).AddHours(-1).AddMinutes(-32),
         IsImportant = false
       });
+
+      Questions.Add(new Question()
+      {
+        Title = "Что делать с Зинаидой из 14-й квартиры?",
+        Text = "Зинаида Фёдоровна из квартиры 14 снова попыталась сломать камеры видеонаблюдения на 3-м этаже. Это уже пятый случай подобного вандализма с её стороны. Оправдывает она это тем, что через камеры её облучают зомби лучами с Лубянки. Нужно раз и навсегда закрыть этот вопрос.",
+        PublishDate = DateTime.Now.AddDays(-2).AddHours(3)
+      });
+      Questions[0].Answers.Add("Понять и простить");
+      Questions[0].Answers.Add("Отправить на лечение");
+      Questions[0].Answers.Add("Отключить облучение из камер");
+
+
       var startDate = new DateTime(2018, 1, 1, 0, 0, 0);
       var randomizer = new Random();
       int prevRandomValueForColdWater = 0;
