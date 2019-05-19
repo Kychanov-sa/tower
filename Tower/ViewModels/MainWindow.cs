@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tower.ViewModels
 {
@@ -17,6 +15,11 @@ namespace Tower.ViewModels
     public IEnumerable<Annoncement> ImportantAnnoncements { get { return from a in Annoncements where a.IsImportant select a; } }
 
     protected IList<Counter> CountersForColdWater { get; set; } = new List<Counter>();
+    protected IList<Counter> CountersForHotWater { get; set; } = new List<Counter>();
+
+    protected IList<Counter> CountersForElectricity { get; set; } = new List<Counter>();
+
+    protected IList<Counter> CountersForGas { get; set; } = new List<Counter>();
 
     public MainWindow()
     {
@@ -48,12 +51,24 @@ namespace Tower.ViewModels
       });
       var startDate = new DateTime(2018, 1, 1, 0, 0, 0);
       var randomizer = new Random();
-      int prevRandomValue = 0;
+      int prevRandomValueForColdWater = 0;
+      int prevRandomValueForHotWater = 0;
+      int prevRandomValueForElectricity = 0;
+      int prevRandomValueForGas = 0;
       for (int i = 0; i != 12; i++)
       {
-        int currentRandomValue = randomizer.Next(100, 500);
-        CountersForColdWater.Add(new Counter(startDate.AddMonths(i), prevRandomValue + currentRandomValue));
-        prevRandomValue += currentRandomValue;
+        int currentRandomValueForColdWater = randomizer.Next(100, 500);
+        int currentRandomValueForHotWater = randomizer.Next(300, 700);
+        int currentRandomValueForElectricity = randomizer.Next(200, 300);
+        int currentRandomValueForGas = randomizer.Next(200, 300);
+        CountersForColdWater.Add(new Counter(startDate.AddMonths(i), prevRandomValueForColdWater + currentRandomValueForColdWater));
+        CountersForHotWater.Add(new Counter(startDate.AddMonths(i), prevRandomValueForHotWater + currentRandomValueForHotWater));
+        CountersForElectricity.Add(new Counter(startDate.AddMonths(i), prevRandomValueForElectricity + currentRandomValueForElectricity));
+        CountersForGas.Add(new Counter(startDate.AddMonths(i), prevRandomValueForGas + currentRandomValueForGas));
+        prevRandomValueForColdWater += currentRandomValueForColdWater;
+        prevRandomValueForHotWater += currentRandomValueForHotWater;
+        prevRandomValueForElectricity += currentRandomValueForElectricity;
+        prevRandomValueForGas += currentRandomValueForGas;
       }
 
       Reports.Add(new ViewModels.Report()
@@ -88,6 +103,27 @@ namespace Tower.ViewModels
     {
       Counters.Clear();
       Counters = new ObservableCollection<Counter>(CountersForColdWater);
+      OnPropertyChanged(nameof(Counters));
+    }
+
+    public void ApplyHotWater()
+    {
+      Counters.Clear();
+      Counters = new ObservableCollection<Counter>(CountersForHotWater);
+      OnPropertyChanged(nameof(Counters));
+    }
+
+    public void ApplyElectricity()
+    {
+      Counters.Clear();
+      Counters = new ObservableCollection<Counter>(CountersForElectricity);
+      OnPropertyChanged(nameof(Counters));
+    }
+
+    public void ApplyGas()
+    {
+      Counters.Clear();
+      Counters = new ObservableCollection<Counter>(CountersForGas);
       OnPropertyChanged(nameof(Counters));
     }
   }

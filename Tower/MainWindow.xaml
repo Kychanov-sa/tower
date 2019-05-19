@@ -161,7 +161,7 @@
                 </Rectangle>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Горячая вода" Style="{StaticResource FullSizeTileStyle}" Background="OrangeRed">
+            <mah:Tile Title="Горячая вода" Style="{StaticResource FullSizeTileStyle}" Background="OrangeRed" Click="HotWater_Click">
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -170,7 +170,7 @@
                 </Rectangle>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Электроэнергия" Style="{StaticResource FullSizeTileStyle}" Background="Purple">
+            <mah:Tile Title="Электроэнергия" Style="{StaticResource FullSizeTileStyle}" Background="Purple" Click="Electricity_Click">
               <mah:Tile.Content>
                 <Rectangle Width="48" Height="64">
                   <Rectangle.Fill>
@@ -179,7 +179,7 @@
                 </Rectangle>
               </mah:Tile.Content>
             </mah:Tile>
-            <mah:Tile Title="Газ" Style="{StaticResource FullSizeTileStyle}" Background="Orange">
+            <mah:Tile Title="Газ" Style="{StaticResource FullSizeTileStyle}" Background="Orange" Click="Gas_Click">
               <mah:Tile.Content>
                 <Image Grid.RowSpan="2" Width="64" Height="64" Source="Resources\Icons\Flame.png" />
               </mah:Tile.Content>
