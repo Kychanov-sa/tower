@@ -26,6 +26,7 @@ namespace Tower.Views
     private void SendData_Click(object sender, RoutedEventArgs e)
     {
       var newCounter = new ViewModels.Counter(Counters.Max(curCounter => curCounter.Date).AddMonths(1), Convert.ToDecimal(value_textBox.Text));
+      value_textBox.Text = "";
       Counters.Add(newCounter);
     }
   }
